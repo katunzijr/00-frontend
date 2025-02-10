@@ -1,0 +1,67 @@
+<div class="account-content">
+  <div class="login-wrapper">
+      <div class="login-content">
+          <div class="login-userset">
+              <div class="login-userset">
+                  <div class="login-logo logo-normal">
+                      <img src="/img/logo.png" alt="img">
+                  </div>
+              </div>
+              <a href="/" class="login-logo logo-white">
+                  <img src="/img/logo-white.png"  alt="">
+              </a>
+              <div class="login-userheading">
+                  <h3>Login With Your Email Address</h3>
+                  <h4 class="verfy-mail-content">We sent a verification code to your email. Enter the code from the email in the field below</h4>
+              </div>
+              <form class="digit-group"
+                [formGroup]="twoStepValificationGroup"
+                (ngSubmit)="$event.preventDefault(); verifyTheUser()"
+              >
+                  <div class="wallet-add">
+                    <div class="otp-box">
+                      <div class="forms-block text-center">
+                        <input
+                          type="number" id="digit_1" min="0" max="9"
+                          formControlName="digit_1"
+                          [class.border-danger]="twoStepValificationGroup.get('digit_1')?.invalid && twoStepValificationGroup.get('digit_1')?.touched"
+                        >
+                        <input
+                          type="number" id="digit_2" min="0" max="9"
+                          formControlName="digit_2"
+                          [class.border-danger]="twoStepValificationGroup.get('digit_2')?.invalid && twoStepValificationGroup.get('digit_2')?.touched"
+                        >
+                        <input
+                          type="number" id="digit_3" min="0" max="9"
+                          formControlName="digit_3"
+                          [class.border-danger]="twoStepValificationGroup.get('digit_3')?.invalid && twoStepValificationGroup.get('digit_3')?.touched"
+                        >
+                        <input
+                          type="number" id="digit_4" min="0" max="9"
+                          formControlName="digit_4"
+                          [class.border-danger]="twoStepValificationGroup.get('digit_4')?.invalid && twoStepValificationGroup.get('digit_4')?.touched"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="Otp-expire text-center">
+                      <p>Otp will expire in 09 :10</p>
+                  </div>
+                  <div class="form-login mt-4">
+                    <button
+                      type="submit"
+                      class="btn btn-login"
+                      [disabled]="twoStepValificationGroup.invalid"
+                    >Verify My Account</button>
+                  </div>
+              </form>
+              <div class="my-4 d-flex justify-content-center align-items-center copyright-text">
+                  <p>Copyright &copy; 2023 Eyesondigits. All rights reserved</p>
+              </div>
+          </div>
+      </div>
+      <div class="login-img">
+          <img src="/img/authentication/step-two.png" alt="img">
+      </div>
+  </div>
+</div>

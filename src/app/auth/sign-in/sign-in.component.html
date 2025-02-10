@@ -1,0 +1,116 @@
+<div class="account-content">
+  <div class="login-wrapper bg-img">
+    <div class="login-content">
+      <form
+        [formGroup]="signInFormGroup"
+        (ngSubmit)="$event.preventDefault(); loginTheUser()"
+      >
+        <div class="login-userset">
+          <div class="login-logo logo-normal">
+            <img src="/img/eyesondigit-logo-2.png" alt="img">
+          </div>
+          <a href="/panel/dashboard" class="login-logo logo-white">
+            <img src="/img/eyesondigit-logo-1.png" alt="">
+          </a>
+          <div class="login-userheading">
+            <h3>Sign In</h3>
+            <h4>Access the Eyesondigits panel using your email and passcode.</h4>
+          </div>
+          <div class="form-login">
+            <label class="form-label" for="email">Email Address</label>
+            <div class="form-addons">
+              <input
+                type="email"
+                id="email"
+                aria-describedby="email"
+                class="form-control"
+                placeholder="Enter email"
+                formControlName="email"
+                [class.border-danger]="signInFormGroup.get('email')?.invalid && signInFormGroup.get('email')?.touched"
+              >
+              <img src="/img/icons/mail.svg" alt="img">
+            </div>
+            <div class="text-danger my-err"
+              *ngIf="signInFormGroup.get('email')?.invalid && signInFormGroup.get('email')?.touched">
+              <small *ngIf="signInFormGroup.get('email')?.hasError('required')">Email field is required</small>
+              <small *ngIf="signInFormGroup.get('email')?.hasError('email')">Enter a valid email</small>
+            </div>
+          </div>
+          <div class="form-login">
+            <label class="form-label" for="password">Password</label>
+            <div class="pass-group">
+              <input
+                [type]="password[1] ? 'text' : 'password' "
+                class="pass-input"
+                id="password"
+                placeholder="Enter password"
+                formControlName="password"
+                [class.border-danger]="signInFormGroup.get('password')?.invalid && signInFormGroup.get('password')?.touched"
+              >
+              <span class="fas toggle-password" [ngClass]=" password[1] ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePassword(1)"></span>
+            </div>
+            <div class="text-danger my-err"
+              *ngIf="signInFormGroup.get('password')?.invalid && signInFormGroup.get('password')?.touched">
+              <small *ngIf="signInFormGroup.get('password')?.hasError('required')">Password field is required</small>
+            </div>
+          </div>
+          <div class="form-login authentication-check">
+            <div class="row">
+              <div class="col-6">
+                <div class="custom-control custom-checkbox custom-class-check">
+                  <label class="checkboxs ps-4 mb-0 pb-0 line-height-1">
+                    <input type="checkbox">
+                    <span class="checkmarks"></span>Remember me
+                  </label>
+                </div>
+              </div>
+              <div class="col-6 text-end">
+                <a class="forgot-link" href="/auth/forgot-password">Forgot Password?</a>
+              </div>
+            </div>
+          </div>
+          <div class="form-login">
+            <button
+              type="submit"
+              class="btn btn-login"
+              [class.btn-loading]="isSigningIn"
+              [disabled]="signInFormGroup.invalid"
+            >Sign In</button>
+          </div>
+          <div class="signinform">
+            <h4>New on our platform?<a href="/auth/sign-up" class="hover-a"> Create an account</a></h4>
+          </div>
+          <div class="form-setlogin or-text">
+            <h4>OR</h4>
+          </div>
+          <div class="form-sociallink">
+            <ul class="d-flex">
+              <li>
+                <a href="javascript:void(0);" class="facebook-logo">
+                  <img src="/img/icons/facebook-logo.svg" alt="Facebook">
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">
+                  <img src="/img/icons/google.png" alt="Google">
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="apple-logo">
+                  <img src="/img/icons/apple-logo.svg" alt="Apple">
+                </a>
+              </li>
+
+            </ul>
+            <div class="my-4 d-flex justify-content-center align-items-center copyright-text">
+              <p>Copyright &copy; 2023 Eyesondigits. All rights reserved</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="login-img">
+      <img src="/img/authentication/login.png" alt="img">
+    </div>
+  </div>
+</div>

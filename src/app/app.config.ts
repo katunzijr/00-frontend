@@ -1,0 +1,51 @@
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './auth/auth.interceptor';
+import { AuthService } from './auth/auth.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor])
+    ),
+    importProvidersFrom([
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter
+        }
+      })
+    ]),
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializerFactory,
+    //   multi: true,
+    //   deps: [AuthService]
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true,
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true,
+    // },
+  ]
+};
+
+export function initializerFactory(authService: AuthService) {
+  console.log("initializerFactory")
+  return () => authService.refreshToken();
+}
+
+export function tokenGetter() {
+  if (typeof window !== 'undefined' && localStorage) {
+    console.log("tokenGetter")
+    return localStorage.getItem('00_access');
+  }
+  return null;
+}
