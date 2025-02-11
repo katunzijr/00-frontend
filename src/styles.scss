@@ -14,32 +14,34 @@
 // // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // // hue. Available color palettes: https://material.io/design/color/
 // $template-angular-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
-// $template-angular-accent: mat.m2-define-palette(mat.$m2-pink-palette,
-//     A200,
-//     A100,
-//     A400);
+// $template-angular-accent: mat.m2-define-palette(
+//   mat.$m2-pink-palette,
+//   A200,
+//   A100,
+//   A400,
+// );
 
 // // The warn palette is optional (defaults to red).
 // $template-angular-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 // // Create the theme object. A theme consists of configurations for individual
 // // theming systems such as "color" or "typography".
-// $template-angular-theme: mat.m2-define-light-theme((color: (primary: $template-angular-primary,
-//         accent: $template-angular-accent,
-//         warn: $template-angular-warn,
-//       ),
-//     ));
+// $template-angular-theme: mat.m2-define-light-theme((color: (
+//   primary: $template-angular-primary,
+//   accent: $template-angular-accent,
+//   warn: $template-angular-warn,
+// ),));
 
 // // Include theme styles for core and each component used in your app.
 // // Alternatively, you can import and @include the theme mixins for each component
 // // that you are using.
 // @include mat.all-component-themes($template-angular-theme);
 @import "../public/scss/main.scss";
-// @import "/public/material/material.scss";
-// @import '/public/icons/tabler-icons/tabler-icons.min.css';
+
+// @import '../public/icons/tabler-icons/tabler-icons.min.css';
 // @import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
 // @import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
-// @import "/public/material/material.scss";
+// @import "../public/scss/material/material.scss";
 // @import url("https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lightgallery.css");
 // @import url("https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lg-zoom.css");
 // @import url("https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lg-video.css");
@@ -2131,39 +2133,39 @@ body .mini-sidebar .sidebar .sidebar-menu>ul>li.submenu-open ul li a {
   }
   .p-datepicker table th > span {
     color: #D8DFEE;
-}
-.p-inlines .p-datepicker table td{
-  color: #777;
-}
-.NgxEditor__Content{
-  background: #0D0D0D;
-  border: 1px solid #1F2228
-}
-.p-chips ul{
-  background: #0D0D0D;
-  border: 1px solid #1F2228
-}
-.p-stepper .p-stepper-header .p-stepper-action{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-}
-.p-stepper-title{
-  color: #D8DFEE;
-}
-.p-stepper-panels{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-}
-.p-element[_ngcontent-ng-c1554889767]{
-    border-radius: 5px;
-}
-.timepick .p-inputtext{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-}
-.col-form-label{
-  color: #D8DFEE;
-}
+  }
+  .p-inlines .p-datepicker table td{
+    color: #777;
+  }
+  .NgxEditor__Content{
+    background: #0D0D0D;
+    border: 1px solid #1F2228
+  }
+  .p-chips ul{
+    background: #0D0D0D;
+    border: 1px solid #1F2228
+  }
+  .p-stepper .p-stepper-header .p-stepper-action{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+  }
+  .p-stepper-title{
+    color: #D8DFEE;
+  }
+  .p-stepper-panels{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+  }
+  .p-element[_ngcontent-ng-c1554889767]{
+      border-radius: 5px;
+  }
+  .timepick .p-inputtext{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+  }
+  .col-form-label{
+    color: #D8DFEE;
+  }
   .basic-box[_ngcontent-ng-c2935039459]{
       background: #0D0D0D;
       border: 1px solid #1F2228;
@@ -2181,43 +2183,43 @@ body .mini-sidebar .sidebar .sidebar-menu>ul>li.submenu-open ul li a {
     &:hover{
       box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
     }
-}
-.example-box2[_ngcontent-ng-c2935039459]{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-  color: #D8DFEE;
-  box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
-  &:hover{
-    box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
   }
-}
-.example-box3[_ngcontent-ng-c2935039459]{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-  color: #D8DFEE;
-  box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
-  &:hover{
-    box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+  .example-box2[_ngcontent-ng-c2935039459]{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+    color: #D8DFEE;
+    box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
+    &:hover{
+      box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+    }
   }
-}
-.example-box4[_ngcontent-ng-c2935039459]{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-  color: #D8DFEE;
-  box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
-  &:hover{
-    box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+  .example-box3[_ngcontent-ng-c2935039459]{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+    color: #D8DFEE;
+    box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
+    &:hover{
+      box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+    }
   }
-}
-.example-box5[_ngcontent-ng-c2935039459]{
-  background: #0D0D0D;
-  border: 1px solid #1F2228;
-  color: #D8DFEE;
-  box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
-  &:hover{
-    box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+  .example-box4[_ngcontent-ng-c2935039459]{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+    color: #D8DFEE;
+    box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
+    &:hover{
+      box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+    }
   }
-}
+  .example-box5[_ngcontent-ng-c2935039459]{
+    background: #0D0D0D;
+    border: 1px solid #1F2228;
+    color: #D8DFEE;
+    box-shadow: 0px 1px 5px 1px rgb(243, 243, 243);
+    &:hover{
+      box-shadow: 0px 4px 54px 0px rgba(224, 224, 224, 0.2509803922);
+    }
+  }
 }
 
 /* Importing Bootstrap SCSS file. */

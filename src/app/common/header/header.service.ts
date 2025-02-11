@@ -8,16 +8,16 @@ import { ObjectInterface } from './header.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class HeaderService {
   private readonly http = inject(HttpClient);
 
   constructor() { }
 
-  logInUser() {
-    const registerUrl = `${environment.apiUrl}api/business/businesses/mybusinesses/`
+  myBusinesses() {
+    const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`
 
     return this.http.get<ObjectInterface>(
-      registerUrl,
+      url,
       {
         observe: 'response',
       },

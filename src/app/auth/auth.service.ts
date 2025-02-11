@@ -30,10 +30,10 @@ export class AuthService {
   constructor() { }
 
   createUser(user: SignUpUserInterface) {
-    const registerUrl = `${environment.apiUrl}auth/registration/`
+    const url = `${environment.apiUrl}auth/registration/`
 
     return this.http.post<SignUpUserInterface>(
-      registerUrl,
+      url,
       user,{
         ...this.CONTEXT,
         observe: 'response'
@@ -43,10 +43,10 @@ export class AuthService {
   }
 
   logInUser(user: SignInUserInterface) {
-    const registerUrl = `${environment.apiUrl}auth/login/`
+    const url = `${environment.apiUrl}auth/login/`
 
     return this.http.post<SignInUserInterface>(
-      registerUrl,
+      url,
       user,
       {
         ...this.CONTEXT,
@@ -140,10 +140,10 @@ export class AuthService {
   }
 
   forgotUserPassword(email: string) {
-    const registerUrl = `${environment.apiUrl}auth/password/reset/`
+    const url = `${environment.apiUrl}auth/password/reset/`
 
     return this.http.post<SignInUserInterface>(
-      registerUrl,
+      url,
       email,
       {
         ...this.CONTEXT,
@@ -154,10 +154,10 @@ export class AuthService {
   }
 
   resetUserPassword(resetUser: ResetPasswordInterface) {
-    const registerUrl = `${environment.apiUrl}auth/password/reset/confirm/`
+    const url = `${environment.apiUrl}auth/password/reset/confirm/`
 
     return this.http.post<SignInUserInterface>(
-      registerUrl,
+      url,
       resetUser,
       {
         ...this.CONTEXT,
@@ -168,10 +168,10 @@ export class AuthService {
   }
 
   verifyUser(verifyUser: TwoStepVerificationInterface) {
-    const registerUrl = `${environment.apiUrl}auth/two/step/verification/`
+    const url = `${environment.apiUrl}auth/two/step/verification/`
 
     return this.http.post<SignInUserInterface>(
-      registerUrl,
+      url,
       verifyUser,
       {
         ...this.CONTEXT,

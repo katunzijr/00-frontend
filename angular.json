@@ -33,11 +33,13 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "public/icons/fontawesome/css/all.min.css"
+              "public/icons/fontawesome/css/all.min.css",
+              "src/styles.scss"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

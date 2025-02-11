@@ -4,14 +4,13 @@
   <!-- Logo -->
   <div class="header-left active" (mouseover)="miniSideBarMouseHover('over')" (mouseout)="miniSideBarMouseHover('out')" >
     <a href = "routes.adminDashboard" class="logo logo-normal">
-      <img src="/img/logo.png" alt="">
-      <!-- pos-logo-light -->
+      <img src="/img/eyesondigit-logo-word.png" alt="">
     </a>
     <a href = "routes.adminDashboard" class="logo logo-white">
-      <img src="/img/logo-white.png" alt="">
+      <img src="/img/eyesondigit-logo-word.png" alt="">
     </a>
     <a href = "routes.adminDashboard" class="logo-small">
-      <img src="/img/logo-small.png" alt="">
+      <img src="/img/eyesondigit-logo-icon.png" alt="">
     </a>
     <a id="toggle_btn" href="javascript:void(0);" (click)="toggleSidebar()" [ngClass]="{'d-none': page === 'pos'}">
       <i class="feather icon-chevrons-left" class="feather icon-16"></i>
@@ -91,19 +90,13 @@
             <img src="/img/store/store-01.png" alt="Store Logo" class="img-fluid">
           </span>
           <span class="user-detail">
-            <span class="user-name">Select Store</span>
+            <span class="user-name">Select Business</span>
           </span>
         </span>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a href="javascript:void(0);" class="dropdown-item">
-          <img src="/img/store/store-01.png" alt="Store Logo" class="img-fluid"> Grocery Alpha
-        </a>
-        <a href="javascript:void(0);" class="dropdown-item">
-          <img src="/img/store/store-02.png" alt="Store Logo" class="img-fluid"> Grocery Apex
-        </a>
-        <a href="javascript:void(0);" class="dropdown-item">
-          <img src="/img/store/store-03.png" alt="Store Logo" class="img-fluid"> Grocery Bevy
+        <a href="javascript:void(0);" class="dropdown-item" *ngFor="let business of businessList;let i = index;">
+          <img src="/img/store/store-01.png" alt="Store Logo" class="img-fluid"> {{business.name}}
         </a>
         <a href="javascript:void(0);" class="dropdown-item">
           <img src="/img/store/store-04.png" alt="Store Logo" class="img-fluid"> Add New Business

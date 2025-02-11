@@ -7,10 +7,10 @@
       >
         <div class="login-userset">
           <div class="login-logo logo-normal">
-            <img src="/img/eyesondigit-logo-2.png" alt="img">
+            <img src="/img/eyesondigit-logo-full.png" alt="img">
           </div>
           <a href="/panel/dashboard" class="login-logo logo-white">
-            <img src="/img/eyesondigit-logo-1.png" alt="">
+            <img src="/img/eyesondigit-logo-full-light.png" alt="">
           </a>
           <div class="login-userheading">
             <h3>Sign In</h3>
@@ -70,10 +70,10 @@
             </div>
           </div>
           <div class="form-login">
+            <!-- [class.btn-loading]="isSigningIn" -->
             <button
               type="submit"
               class="btn btn-login"
-              [class.btn-loading]="isSigningIn"
               [disabled]="signInFormGroup.invalid"
             >Sign In</button>
           </div>
