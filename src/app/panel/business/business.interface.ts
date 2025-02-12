@@ -19,3 +19,11 @@ export interface ObjectInterface {
   previous: string,
   results: BusinessInterface[],
 }
+
+export interface LocalBusinessesInterface {
+  id: number,
+  name: string,
+}
+
+
+

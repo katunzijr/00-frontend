@@ -1,10 +1,11 @@
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService} from "../auth.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { AuthRoutes } from '../auth.routes';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,6 +13,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    RouterLink
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: '../auth.component.scss'
@@ -22,6 +24,7 @@ export class SignInComponent {
   signInFormGroup: FormGroup;
   router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  public authRoutes = AuthRoutes;
 
   constructor(
     private fb: FormBuilder,

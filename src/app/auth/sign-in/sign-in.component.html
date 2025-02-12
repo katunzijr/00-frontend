@@ -9,7 +9,7 @@
           <div class="login-logo logo-normal">
             <img src="/img/eyesondigit-logo-full.png" alt="img">
           </div>
-          <a href="/panel/dashboard" class="login-logo logo-white">
+          <a href="/" class="login-logo logo-white">
             <img src="/img/eyesondigit-logo-full-light.png" alt="">
           </a>
           <div class="login-userheading">
@@ -65,7 +65,7 @@
                 </div>
               </div>
               <div class="col-6 text-end">
-                <a class="forgot-link" href="/auth/forgot-password">Forgot Password?</a>
+                <a class="forgot-link" [routerLink]="authRoutes.forgotPassword">Forgot Password?</a>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@
             >Sign In</button>
           </div>
           <div class="signinform">
-            <h4>New on our platform?<a href="/auth/sign-up" class="hover-a"> Create an account</a></h4>
+            <h4>New on our platform?<a [routerLink]="authRoutes.signUp" class="hover-a"> Create an account</a></h4>
           </div>
           <div class="form-setlogin or-text">
             <h4>OR</h4>

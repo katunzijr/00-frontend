@@ -134,6 +134,7 @@ export class AuthService {
       localStorage.removeItem('00_access');
       localStorage.removeItem('00_refresh');
       localStorage.removeItem('00_user');
+      localStorage.removeItem('00_businesses');
       this.currentUserSignal.set(null)
       this.router.navigate([AuthRoutes.signIn]);
     });

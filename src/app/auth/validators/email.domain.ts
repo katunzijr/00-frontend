@@ -1,18 +1,20 @@
-import { AbstractControl, ValidationErrors } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function emailDomainValidator(control: AbstractControl): ValidationErrors | null {
-  const value = control.value?.toLowerCase()
-  const hosts = [
-    {to_whom: 'staff', host: 'gmail.com'},
-    {to_whom: 'staff', host:'yahoo.com'},
-  ]
+// Create a custom email domain validator
+export function emailDomainValidator(excludedHosts: { host: string }[]): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const email = control.value;
+    if (!email) {
+      return null; // Don't validate empty values
+    }
 
-  if(!value) {
-    // console.log('null found')
-    return null
-  }
+    // Extract domain from the email
+    const domain = email.split('@')[1];
 
-  const matches = hosts.some(host => value.endsWith('@' + host.host));
-  // console.log(matches)
-  return matches ? { emaildomainvalidator: true } : null;
+    // Check if the domain is in the hosts list
+    const validDomain = excludedHosts.some(host => host.host === domain);
+
+    return validDomain ? { invalidDomain: { value: control.value } } : null;
+  };
 }
+

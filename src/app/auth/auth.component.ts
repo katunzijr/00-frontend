@@ -2,9 +2,9 @@ import { Component, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavigationStart, Router, Event as RouterEvent } from '@angular/router';
-// import { SettingsService } from '../core/core.index';
 import { SettingsService } from '../core/service/settings/settings.service';
 import { url } from '../shared/model/sidebar.model';
+import { AuthRoutes } from './auth.routes';
 
 @Component({
   selector: 'app-auth',

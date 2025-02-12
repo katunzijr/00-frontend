@@ -1,13 +1,14 @@
 import { Component, inject, OnInit, } from '@angular/core';
-import { NavigationStart, Router, Event as RouterEvent } from '@angular/router';
+import { NavigationStart, Router, Event as RouterEvent, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CommonService } from '../../core/service/common/common.service';
 import { SidebarService } from '../../core/service/sidebar/sidebar.service';
 import { AuthService } from '../../auth/auth.service';
 import { AuthenticatedUser } from '../../auth/auth.interface';
-import { HeaderService } from './header.service';
+import { BusinessService } from '../../panel/business/business.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { BusinessInterface } from './header.interface';
+import { LocalBusinessesInterface } from '../../panel/business/business.interface';
+import { BusinessRoutes } from '../../panel/business/business.routes';
 
 // const icons = {
 //   User,
@@ -19,6 +20,7 @@ import { BusinessInterface } from './header.interface';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     // FeatherModule.pick(icons),
   ],
   templateUrl: './header.component.html',
@@ -37,10 +39,13 @@ export class HeaderComponent implements OnInit{
   page = '';
   last = '';
 
+  private readonly router = inject(Router);
   authService = inject(AuthService);
-  headerService = inject(HeaderService);
+  businessService = inject(BusinessService);
   user: AuthenticatedUser | null = null;
-  businessList: BusinessInterface[] = [];
+  businessList: LocalBusinessesInterface[] = [];
+  public businessRoutes = BusinessRoutes;
+  currentBusiness: LocalBusinessesInterface | null = null;
 
   constructor(
     private Router: Router,
@@ -100,30 +105,8 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.myBusinesses()
+    this.businessList = this.businessService.loadBusinessesLocally()
+    this.currentBusiness = this.businessList.length > 0 ? this.businessList[0] : null;
   }
-
-  myBusinesses() {
-      this.headerService.myBusinesses().subscribe({
-        next: (data): void => {
-          this.businessList = data.body?.results ?? [];
-        },
-        error: (error: HttpErrorResponse): void => {
-
-          if (error instanceof EvalError || error.status == 0) {
-            // this.toastService.showError('There is an issue with the network. Please try again.');
-            console.log('There is an issue with the network. Please try again.');
-          }
-          else if(error.status == 403) {
-            console.log(error.error.detail);
-          }
-          else if(error.status == 400) {
-            error.error.non_field_errors.forEach((item: string) => {console.log(item)})
-          }
-          console.log(error)
-        }
-      })
-    }
-
 
 }

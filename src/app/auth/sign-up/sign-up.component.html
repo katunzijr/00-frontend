@@ -6,10 +6,10 @@
     >
       <div class="login-userset">
         <div class="login-logo logo-normal">
-          <img src="/img/eyesondigit-logo-2.png" alt="img">
+          <img src="/img/eyesondigit-logo-full.png" alt="img">
         </div>
         <a href="/" class="login-logo logo-white">
-          <img src="/img/eyesondigit-logo-1.png" alt="">
+          <img src="/img/eyesondigit-logo-full-light.png" alt="">
         </a>
         <div class="login-userheading">
           <h3>Register</h3>
@@ -50,7 +50,7 @@
           <div class="text-danger my-err" *ngIf="signUpFormGroup.get('email')?.invalid && signUpFormGroup.get('email')?.touched">
             <small *ngIf="signUpFormGroup.get('email')?.hasError('required')">Email field is required</small>
             <small *ngIf="signUpFormGroup.get('email')?.hasError('email')">Enter a valid email</small>
-            <small *ngIf="signUpFormGroup.get('email')?.hasError('emaildomainvalidattor')">Valid email domain allowed [gmail.com, yahoo.com]</small>
+            <small *ngIf="signUpFormGroup.get('email')?.hasError('invalidDomain')">Email must not be from eyesondigit.com</small>
           </div>
         </div>
         <div class="form-login">
@@ -136,3 +136,5 @@
     <img src="/img/authentication/register.png" alt="img">
   </div>
 </div>
+
+

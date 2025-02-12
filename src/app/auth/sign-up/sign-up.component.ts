@@ -17,6 +17,10 @@ import { emailDomainValidator } from '../validators/email.domain';
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
+  excludedHosts = [
+    { host: 'eyesondigit.com' },
+    { host: 'eyesondigits.com' },
+  ];
 
   signUpFormGroup: FormGroup;
   router = inject(Router)
@@ -27,7 +31,7 @@ export class SignUpComponent {
     // private toastService: ToastService,
   ) {
     this.signUpFormGroup = this.fb.group({
-      email: ['', [Validators.required, Validators.email, emailDomainValidator]],
+      email: ['', [Validators.required, Validators.email, emailDomainValidator(this.excludedHosts)]],
       password1: ['', Validators.required],
       password2: ['', Validators.required],
       username: ['', Validators.required],

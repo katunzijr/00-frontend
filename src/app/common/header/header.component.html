@@ -90,15 +90,20 @@
             <img src="/img/store/store-01.png" alt="Store Logo" class="img-fluid">
           </span>
           <span class="user-detail">
-            <span class="user-name">Select Business</span>
+            <span class="user-name text-truncate" style="max-width: 100px;">{{currentBusiness?.name}}kksksm sks kksksm sks kksksm sks</span>
           </span>
         </span>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a href="javascript:void(0);" class="dropdown-item" *ngFor="let business of businessList;let i = index;">
+        <a
+          href="javascript:void(0);"
+          class="dropdown-item"
+          *ngFor="let business of businessList;let i = index;"
+          [class.link-warning]="business.id == currentBusiness?.id"
+        >
           <img src="/img/store/store-01.png" alt="Store Logo" class="img-fluid"> {{business.name}}
         </a>
-        <a href="javascript:void(0);" class="dropdown-item">
+        <a [routerLink]="businessRoutes.addBusiness" class="dropdown-item link-secondary">
           <img src="/img/store/store-04.png" alt="Store Logo" class="img-fluid"> Add New Business
         </a>
       </div>
@@ -249,7 +254,7 @@
             <img [src]="user?.avatar || '/img/avatar/no-dp-1.jpg'" alt="" class="img-fluid">
           </span>
           <span class="user-detail">
-            <span class="user-name">{{user?.username ? user?.username : (user?.first_name + ' ' + user?.last_name)}}</span>
+            <span class="user-name text-truncate" style="max-width: 50px;">{{user?.username ? user?.username : (user?.first_name + ' ' + user?.last_name)}}</span>
             <span class="user-role">{{user?.designation}}</span>
           </span>
         </span>
@@ -262,7 +267,7 @@
               <span class="status online"></span>
             </span>
             <div class="profilesets">
-              <h6>{{user?.username ? user?.username : (user?.first_name + ' ' + user?.last_name)}}</h6>
+              <h6 class="text-truncate" style="max-width: 100px;">{{user?.username ? user?.username : (user?.first_name + ' ' + user?.last_name)}}</h6>
               <h5>{{user?.designation}}</h5>
             </div>
           </div>

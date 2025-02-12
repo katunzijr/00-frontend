@@ -14,5 +14,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  public dashboardRoutes = DashboardRoutes;
+  // public dashboardRoutes = DashboardRoutes;
 }

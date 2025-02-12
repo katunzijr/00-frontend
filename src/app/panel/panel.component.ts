@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Renderer2 } from '@angular/core';
+import { Component, inject, Renderer2, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, Router, Event as RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, lastValueFrom } from 'rxjs';
 import { SettingsService } from '../core/service/settings/settings.service';
 import { SidebarService } from '../core/service/sidebar/sidebar.service';
 import { CommonService } from '../core/service/common/common.service';
@@ -11,6 +11,10 @@ import { url } from '../shared/model/sidebar.model';
 import { SidebarOneComponent } from '../common/sidebar-one/sidebar-one.component';
 import { HeaderComponent } from '../common/header/header.component';
 import { LayoutComponent } from '../common/layout/layout.component';
+import { BusinessComponent } from './business/business.component';
+import { BusinessService } from './business/business.service';
+import { LocalBusinessesInterface } from './business/business.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-panel',
@@ -40,6 +44,8 @@ export class PanelComponent {
   base = '';
   page = '';
   last = '';
+
+  // businessService = inject(BusinessService);
 
   constructor(
     private Router: Router,
@@ -122,10 +128,14 @@ export class PanelComponent {
 
   isCollapsed: boolean = false;
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // this.businessService.fetchMyBusinesses(); // Trigger API fetch
+    // await lastValueFrom(this.businessService.fetchComplete$); // Wait for completion
+
     this.sidebar.collapse$.subscribe((collapse: boolean) => {
       this.isCollapsed = collapse;
     });
+
   }
 
   showLoader() {
