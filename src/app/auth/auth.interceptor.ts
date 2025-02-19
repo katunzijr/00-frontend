@@ -15,13 +15,8 @@ export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, ne
     const authenticatedRequest = addAuthorizationHeader(request);
     return next(authenticatedRequest);
   }
-  
-  // const baseBackendUrl = 'http://localhost:8000/'
-  // const protectedUrlPatterns = [
-  //   `${baseBackendUrl}api`,
-  // ];
-  // const isProtectedUrl = protectedUrlPatterns.some(pattern => request.url.startsWith(pattern));
-  return authService.refreshToken().pipe(
+
+  return authService.getRefreshToken().pipe(
     switchMap(() => {
       const authenticatedRequest = addAuthorizationHeader(request);
       return next(authenticatedRequest);

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, Observable, Subject, tap, throwError } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { BusinessInterface, LocalBusinessesInterface, ObjectInterface } from './business.interface';
+import { AddBusinessInterface, BusinessInterface, BusinessTypeInterface, LocalBusinessesInterface, ObjectInterface } from './business.interface';
 import { Router } from '@angular/router';
 import { BusinessRoutes } from './business.routes';
 
@@ -19,7 +19,7 @@ export class BusinessService {
   myBusinesses() {
     const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`
 
-    return this.http.get<ObjectInterface>(
+    return this.http.get<ObjectInterface<BusinessInterface>>(
       url,
       {
         observe: 'response',
@@ -28,11 +28,11 @@ export class BusinessService {
     .pipe(catchError(this.handleError))
   }
 
-  fetchMyBusinesses(): Observable<boolean> {
+  getMyBusinesses(): Observable<boolean> {
     const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`;
 
-    return this.http.get<ObjectInterface>(url).pipe(
-      map((response: ObjectInterface) => {
+    return this.http.get<ObjectInterface<BusinessInterface>>(url).pipe(
+      map((response: ObjectInterface<BusinessInterface>) => {
         const businesses = response.results.map((business) => ({
           id: business.id,
           name: business.name
@@ -57,6 +57,27 @@ export class BusinessService {
       return businesses
     }
     return []
+  }
+
+  getBusinessesType(): Observable<BusinessTypeInterface[]> {
+    const url = `${environment.apiUrl}api/business/business-types/`;
+
+    return this.http.get<ObjectInterface<BusinessTypeInterface>>(url).pipe(
+      map(response => response.results)
+    );
+  }
+
+  registerBusiness(business: AddBusinessInterface) {
+    const url = `${environment.apiUrl}api/business/businesses/`
+
+    return this.http.post<object>(
+      url,
+      business,
+      {
+        observe: 'response',
+      },
+    )
+    .pipe(catchError(this.handleError))
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

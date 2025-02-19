@@ -3,12 +3,13 @@ import { PanelComponent } from './panel.component';
 import { DASHBOARD_ROUTES } from './dashboard/dashboard.routes';
 import { BUSINESS_ROUTES } from './business/business.routes';
 import { authenticationGuard } from '../auth/auth.guard';
+import { businessGuard } from './business/business.guard';
 
 export const PANEL_ROUTES: Routes = [
   {
     path: '',
     component: PanelComponent,
-    canActivate: [authenticationGuard],
+    canActivate: [authenticationGuard, businessGuard],
     children: [
       {
         path: '',

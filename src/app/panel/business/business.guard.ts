@@ -14,9 +14,8 @@ export const businessGuard: CanActivateFn = () => {
   if (business.length > 0) {
     return true
   }
-  return businessService.fetchMyBusinesses().pipe(
+  return businessService.getMyBusinesses().pipe(
     map((hasBusinesses: boolean) => {
-      console.log('global checked')
       if (!hasBusinesses) {
         return router.parseUrl(BusinessRoutes.addBusiness);
       }

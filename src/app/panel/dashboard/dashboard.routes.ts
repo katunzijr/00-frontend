@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { businessGuard } from '../business/business.guard';
 
 export class DashboardRoutes {
   private static base = '';
@@ -23,7 +22,6 @@ export const DASHBOARD_ROUTES: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    canActivate: [businessGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: DashboardRoutes.adminDashboard },
       { path: DashboardRoutes.adminDashboard, component: AdminDashboardComponent },

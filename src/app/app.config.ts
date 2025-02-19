@@ -2,10 +2,12 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './auth/auth.interceptor';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoggingInterceptor } from './app.logging.interceptor';
+import { ErrorInterceptor } from './error-page/errors.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,24 +24,29 @@ export const appConfig: ApplicationConfig = {
         }
       })
     ]),
-    // {
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptor,
+      multi: true,
+    },
+    // { // old ways
     //   provide: APP_INITIALIZER,
     //   useFactory: initializerFactory,
     //   multi: true,
     //   deps: [AuthService]
     // },
-    // {
-    //   provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true,
-    // },
-    // {
-    //   provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true,
-    // },
   ]
 };
 
+// Aet Refresh Token On App initialization
 export function initializerFactory(authService: AuthService) {
   console.log("initializerFactory")
-  return () => authService.refreshToken();
+  return () => authService.getRefreshToken();
 }
 
 export function tokenGetter() {

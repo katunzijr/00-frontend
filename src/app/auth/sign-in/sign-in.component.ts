@@ -48,9 +48,10 @@ export class SignInComponent {
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: (data): void => {
+        localStorage.removeItem('00_businesses');
         const userData: any = data;
         this.authService.storeTokens(userData.body);
-        this.authService.scheduleTokenRefresh(userData.body);
+        // this.authService.scheduleTokenRefresh(userData.body);
         this.authService.redirectToDashbordPage();
         this.isSigningIn = false
       },

@@ -129,8 +129,6 @@ export class PanelComponent {
   isCollapsed: boolean = false;
 
   async ngOnInit(): Promise<void> {
-    // this.businessService.fetchMyBusinesses(); // Trigger API fetch
-    // await lastValueFrom(this.businessService.fetchComplete$); // Wait for completion
 
     this.sidebar.collapse$.subscribe((collapse: boolean) => {
       this.isCollapsed = collapse;

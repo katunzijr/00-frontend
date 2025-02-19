@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { BusinessComponent } from './business.component';
 import { authenticationGuard } from '../../auth/auth.guard';
 import { AddBusinessComponent } from './add-business/add-business.component';
-import { AddBranchesComponent } from './add-branches/add-branches.component';
+import { AddBranchesComponent } from './add-branch/add-branch.component';
 
 export class BusinessRoutes {
   private static base = '';

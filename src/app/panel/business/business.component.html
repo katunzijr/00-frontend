@@ -1,133 +1,107 @@
 <div class="container">
   <div class="register">
     <div class="row">
-        <div class="col-md-3 register-left">
-            <img src="/img/eyesondigit-logo-icon.png" alt=""/>
-            <h3>Hello</h3>
-            <p>Tell us a little about your business.</p>
-            <input type="button" value="Home" [routerLink]="['/']"/><br/>
-        </div>
-        <div class="col-md-9 register-right">
-            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" [routerLink]="businessRoutes.addBusiness" role="tab" aria-controls="business" aria-selected="true">Business</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" [routerLink]="businessRoutes.addBranches" role="tab" aria-controls="branch" aria-selected="false">Branch</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <!-- <router-outlet></router-outlet> -->
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="register-heading">Register a Business</h3>
-                    <div class="row register-form">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Business Name *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Business P.O.Box *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Business Loc" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control"  placeholder="Business Add *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <div class="maxl">
-                                    <label class="radio inline">
-                                        <input type="radio" name="gender" value="Personal" checked>
-                                        <span> Personal </span>
-                                    </label>
-                                    <label class="radio inline">
-                                        <input type="radio" name="gender" value="Company">
-                                        <span>Company </span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Business Email *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control">
-                                    <option class="hidden"  selected disabled>Please select something</option>
-                                    <option>selection 01</option>
-                                    <option>selection 02</option>
-                                    <option>selection 03</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Enter Something *" value="" />
-                            </div>
-                            <input type="submit" class="btnRegister"  value="Register"/>
-                        </div>
-                    </div>
+      <div class="col-md-3 register-left">
+        <img src="/img/eyesondigit-logo-icon.png" alt="" />
+        <h3>Hello {{user?.first_name ? user?.first_name : user?.username}}</h3>
+        <p>Tell us a little about your business.</p>
+        <input type="button" value="Home" [routerLink]="['/']" /><br />
+      </div>
+      <div class="col-md-9 register-right">
+        <!-- <router-outlet></router-outlet> -->
+        <div class="position-relative">
+          <h3 class="register-heading">Register a Business</h3>
+          <div class="row register-form">
+            <div class="col-12 px-5">
+              <form
+                class="row g-3 mt-0 mb-5"
+                [formGroup]="registerBusinessGroup"
+                (ngSubmit)="$event.preventDefault(); registerTheBusiness()"
+              >
+                <div class="col-md-6">
+                  <label class="form-label" for="name">Business Name <span>*</span></label>
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                    placeholder="Business Name"
+                    formControlName="name"
+                    [class.border-danger]="registerBusinessGroup.get('name')?.invalid && registerBusinessGroup.get('name')?.touched"
+                  />
                 </div>
-                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <h3  class="register-heading">Add Branches</h3>
-                    <div class="row register-form">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Business Name *" value="" />
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Business P.O.Box *" value="" />
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Business Loc" value="" />
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control"  placeholder="Business Add *" value="" />
-                          </div>
-                          <div class="form-group">
-                              <div class="maxl">
-                                  <label class="radio inline">
-                                      <input type="radio" name="gender" value="Personal" checked>
-                                      <span> Personal </span>
-                                  </label>
-                                  <label class="radio inline">
-                                      <input type="radio" name="gender" value="Company">
-                                      <span>Company </span>
-                                  </label>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <input type="email" class="form-control" placeholder="Business Email *" value="" />
-                          </div>
-                          <div class="form-group">
-                              <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
-                          </div>
-                          <div class="form-group">
-                              <select class="form-control">
-                                  <option class="hidden"  selected disabled>Please select something</option>
-                                  <option>selection 01</option>
-                                  <option>selection 02</option>
-                                  <option>selection 03</option>
-                              </select>
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Enter Something *" value="" />
-                          </div>
-                          <input type="submit" class="btnRegister"  value="Register"/>
-                      </div>
+                <div class="col-md-6">
+                  <label for="type" class="form-label">Type <span>*</span></label>
+                  <select
+                    id="type"
+                    class="form-select"
+                    formControlName="type"
+                    [class.border-danger]="registerBusinessGroup.get('type')?.invalid && registerBusinessGroup.get('type')?.touched"
+                  >
+                    <option value="" disabled>Choose...</option>
+                    <option
+                      *ngFor="let businessType of businessesTypeList;let i = index;"
+                      value="{{businessType.id}}"
+                    >{{businessType.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="website" class="form-label">Website</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="website"
+                    placeholder="Eg: https://example.com"
+                    formControlName="website"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="logo" class="form-label">Logo</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="logo"
+                    formControlName="logo"
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="description" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    rows="5"
+                    cols="5"
+                    id="description"
+                    name="description"
+                    class="form-control"
+                    placeholder="Brief describe your business here"
+                    formControlName="description"
+                  ></textarea>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="isBusinessActive"
+                      formControlName="isBusinessActive"
+                    />
+                    <label class="form-check-label" for="isBusinessActive">
+                      Is this business active by now
+                    </label>
                   </div>
                 </div>
+                <div class="col-12 d-md-flex justify-content-end">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="registerBusinessGroup.invalid"
+                  >Register</button>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
   </div>
-
 </div>
-
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -60,7 +60,7 @@ export class AuthService {
     return throwError(() => error);
   };
 
-  loadUserData(): void {
+  getUserData(): void {
     const userDataString = localStorage.getItem('00_user');
     if (userDataString) {
       const user = JSON.parse(userDataString)
@@ -69,13 +69,18 @@ export class AuthService {
       this.currentUserSignal.set(null);
     }
   }
+
   get currentUser(): WritableSignal<AuthenticatedUser | null> {
-    this.loadUserData()
+    this.getUserData()
     return this.currentUserSignal;
   }
 
   isAuthenticated(): boolean {
-    return !this.jwtHelper.isTokenExpired();
+    if (this.jwtHelper.isTokenExpired()){
+      this.getRefreshToken()
+      return false;
+    }
+    return true;
   }
 
   storeTokens(token: TokenResponse): void {
@@ -86,8 +91,9 @@ export class AuthService {
       localStorage.setItem('00_user', JSON.stringify(token.user));
   }
 
-  refreshToken() {
+  getRefreshToken() {
     const refresh_token = localStorage.getItem('00_refresh');
+    console.log(refresh_token)
     if (!refresh_token) {
       return of();
     }
@@ -103,20 +109,21 @@ export class AuthService {
       tap(data => {
         console.log('refreshToken data')
         this.storeTokens(data);
-        this.scheduleTokenRefresh(data);
+        // this.scheduleTokenRefresh(data);
       })
     );
   }
 
+  // Refresh few minutes before expiration time
   scheduleTokenRefresh(token: TokenResponse): void {
-    console.log('scheduleTokenRefresh called')
+    console.log('A few minutes before expiration time')
     const expirationTime = this.jwtHelper.getTokenExpirationDate(token.access)?.getTime();
     const refreshTime = expirationTime ? expirationTime - this.TOKEN_EXPIRY_THRESHOLD_MINUTES * 60 * 1000 : Date.now();
     const refreshInterval = refreshTime - Date.now();
 
     if (refreshInterval > 0) {
       setTimeout(() => {
-        this.refreshToken()
+        this.getRefreshToken()
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe();
       }, refreshInterval);
@@ -127,15 +134,26 @@ export class AuthService {
     const refresh_token = localStorage.getItem('00_refresh');
     this.http.post(
       `${environment.apiUrl}auth/logout/`,
-      {refresh: refresh_token},
+      { refresh: refresh_token },
     )
-    .pipe(takeUntilDestroyed(this.destroyRef))
+    .pipe(
+      takeUntilDestroyed(this.destroyRef),
+      catchError((error) => {
+        if (error.status == 401) {
+          localStorage.removeItem('00_access');
+          localStorage.removeItem('00_refresh');
+          localStorage.removeItem('00_user');
+          localStorage.removeItem('00_businesses');
+        }
+        return throwError(() => error);
+      })
+    )
     .subscribe(() => {
       localStorage.removeItem('00_access');
       localStorage.removeItem('00_refresh');
       localStorage.removeItem('00_user');
       localStorage.removeItem('00_businesses');
-      this.currentUserSignal.set(null)
+      this.currentUserSignal.set(null);
       this.router.navigate([AuthRoutes.signIn]);
     });
   }

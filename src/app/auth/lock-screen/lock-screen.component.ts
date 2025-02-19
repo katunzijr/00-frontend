@@ -20,20 +20,20 @@ export class LockScreenComponent {
     this.password[index] = !this.password[index]
   }
 
-    lockScreenGroup: FormGroup;
+  lockScreenGroup: FormGroup;
 
-    constructor(
-      private fb: FormBuilder,
-      private authService: AuthService,
-      // private toastService: ToastService,
-    ) {
-      this.lockScreenGroup = this.fb.group({
-        password: ['', Validators.required],
-      });
-    }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    // private toastService: ToastService,
+  ) {
+    this.lockScreenGroup = this.fb.group({
+      password: ['', Validators.required],
+    });
+  }
 
-    lockTheUserScreen() {
-      console.log("Do nothing!")
-    }
+  lockTheUserScreen() {
+    console.log("Do nothing!")
+  }
 
 }

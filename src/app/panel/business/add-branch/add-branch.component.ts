@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-add-branches',
   standalone: true,
   imports: [],
-  templateUrl: './add-branches.component.html',
-  styleUrl: './add-branches.component.scss'
+  templateUrl: './add-branch.component.html',
+  styleUrl: './add-branch.component.scss'
 })
 export class AddBranchesComponent {
 
