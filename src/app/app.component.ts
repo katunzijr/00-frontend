@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, Event as RouterEvent, RouterOutlet } from '@angular/router';
 import { LoaderComponent } from './common/loader/loader.component';
 import { SpinnerService } from './core/service/spinner/spinner.service';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { SpinnerService } from './core/service/spinner/spinner.service';
     RouterOutlet,
     CommonModule,
     LoaderComponent,
+    ToastComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -70,12 +70,19 @@
             </div>
           </div>
           <div class="form-login">
-            <!-- [class.btn-loading]="isSigningIn" -->
             <button
               type="submit"
               class="btn btn-login"
               [disabled]="signInFormGroup.invalid"
-            >Sign In</button>
+            >
+              @if(isSigningIn) {
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              }
+              @else{
+                Sign In
+              }
+            </button>
           </div>
           <div class="signinform">
             <h4>New on our platform?<a [routerLink]="authRoutes.signUp" class="hover-a"> Create an account</a></h4>

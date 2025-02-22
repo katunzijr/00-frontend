@@ -13,7 +13,7 @@ import { HeaderComponent } from '../common/header/header.component';
 import { LayoutComponent } from '../common/layout/layout.component';
 import { BusinessComponent } from './business/business.component';
 import { BusinessService } from './business/business.service';
-import { LocalBusinessesInterface } from './business/business.interface';
+import { LocalBusinessInterface } from './business/business.interface';
 import { map } from 'rxjs/operators';
 
 @Component({

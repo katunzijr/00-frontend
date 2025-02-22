@@ -43,7 +43,7 @@ export const appConfig: ApplicationConfig = {
   ]
 };
 
-// Aet Refresh Token On App initialization
+// Refresh Token On App initialization
 export function initializerFactory(authService: AuthService) {
   console.log("initializerFactory")
   return () => authService.getRefreshToken();

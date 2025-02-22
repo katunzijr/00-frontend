@@ -1,51 +1,125 @@
-<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-  <h3 class="register-heading">Apply as a Employee</h3>
+<div class="position-relative">
+  <h3 class="heading-tittle">Register a Business</h3>
   <div class="row register-form">
-      <div class="col-md-6">
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="First Name *" value="" />
+    <div class="col-12 px-5">
+      <form
+        class="row g-3 mt-0 mb-5"
+        [formGroup]="registerBusinessGroup"
+        (ngSubmit)="$event.preventDefault(); registerTheBusiness()"
+      >
+        <div class="col-md-6">
+          <label class="form-label" for="name">Business Name <span>*</span></label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            placeholder="Business Name"
+            formControlName="name"
+            [class.border-danger]="registerBusinessGroup.get('name')?.invalid && registerBusinessGroup.get('name')?.touched"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="type" class="form-label">Type <span>*</span></label>
+          <select
+            id="type"
+            class="form-select"
+            formControlName="type"
+            [class.border-danger]="registerBusinessGroup.get('type')?.invalid && registerBusinessGroup.get('type')?.touched"
+          >
+            <option value="" disabled>Choose...</option>
+            <option
+              *ngFor="let businessType of businessesTypeList;let i = index;"
+              value="{{businessType.id}}"
+            >{{businessType.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="website" class="form-label">Website</label>
+          <input
+            type="text"
+            class="form-control"
+            id="website"
+            placeholder="Eg: https://example.com"
+            formControlName="website"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="logo" class="form-label">Logo</label>
+          <input
+            type="file"
+            class="form-control"
+            id="logo"
+            formControlName="logo"
+          />
+        </div>
+        <div class="col-12">
+          <label for="description" class="form-label"
+            >Description</label
+          >
+          <textarea
+            rows="5"
+            cols="5"
+            id="description"
+            class="form-control"
+            placeholder="Brief describe your business here"
+            formControlName="description"
+          ></textarea>
+        </div>
+        <div class="col-12 d-sm-flex gap-5">
+          <div class="form-check form-check-md">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="businessClass"
+              id="businessClass-individual"
+              value="individual"
+            >
+            <label class="form-check-label" for="businessClass-individual">
+              Individual
+            </label>
           </div>
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="Last Name *" value="" />
+          <div class="form-check form-check-md">
+              <input
+                class="form-check-input"
+                type="radio"
+                formControlName="businessClass"
+                id="businessClass-company"
+                value="company"
+              >
+              <label class="form-check-label" for="businessClass-company">
+                Company
+              </label>
           </div>
-          <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password *" value="" />
+        </div>
+        <div class="col-12">
+          <div class="form-check form-check-md">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isBusinessActive"
+              formControlName="isBusinessActive"
+            />
+            <label class="form-check-label" for="isBusinessActive">
+              Is this business active by now
+            </label>
           </div>
-          <div class="form-group">
-              <input type="password" class="form-control"  placeholder="Confirm Password *" value="" />
-          </div>
-          <div class="form-group">
-              <div class="maxl">
-                  <label class="radio inline">
-                      <input type="radio" name="gender" value="male" checked>
-                      <span> Male </span>
-                  </label>
-                  <label class="radio inline">
-                      <input type="radio" name="gender" value="female">
-                      <span>Female </span>
-                  </label>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-6">
-          <div class="form-group">
-              <input type="email" class="form-control" placeholder="Your Email *" value="" />
-          </div>
-          <div class="form-group">
-              <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
-          </div>
-          <div class="form-group">
-              <select class="form-control">
-                  <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
-                  <option>What is your Birthdate?</option>
-                  <option>What is Your old Phone Number</option>
-                  <option>What is your Pet Name?</option>
-              </select>
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
-          </div>
-          <input type="submit" class="btnRegister"  value="Register"/>
-      </div>
+        </div>
+        <div class="col-12 d-md-flex justify-content-end">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="registerBusinessGroup.invalid"
+          >
+          @if(isRegisteringBusiness) {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          }
+          @else{
+            Register
+          }
+        </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

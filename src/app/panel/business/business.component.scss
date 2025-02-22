@@ -4,7 +4,6 @@
   background: -webkit-linear-gradient(left, #ff9e43, #ff9e4300);
 }
 .register{
-
   padding: 3%;
   max-width: 1400px;
   margin: auto;
@@ -13,7 +12,7 @@
   text-align: center;
   color: #fff;
   margin-top: 4%;
-  input{
+  .home-button{
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
@@ -22,6 +21,17 @@
     font-weight: bold;
     color: #383d41;
     margin-top: 30%;
+    margin-bottom: 3%;
+    cursor: pointer;
+  }
+  .logout-button{
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    width: 60%;
+    background: #f8f9fa;
+    font-weight: bold;
+    margin-top: 10%;
     margin-bottom: 3%;
     cursor: pointer;
   }
@@ -57,10 +67,4 @@
 @keyframes mover {
   0% { transform: translateY(0); }
   100% { transform: translateY(-20px); }
-}
-
-.register-heading{
-  text-align: center;
-  margin-top: 8%;
-  color: #495057;
 }

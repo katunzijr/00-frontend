@@ -5,102 +5,12 @@
         <img src="/img/eyesondigit-logo-icon.png" alt="" />
         <h3>Hello {{user?.first_name ? user?.first_name : user?.username}}</h3>
         <p>Tell us a little about your business.</p>
-        <input type="button" value="Home" [routerLink]="['/']" /><br />
+        <input type="button" class="home-button" value="Home" [routerLink]="['/']" /><br />
+        <input type="button" class="logout-button text-danger" value="Log Out" (click)="authService.logOutUser()" /><br />
       </div>
       <div class="col-md-9 register-right">
-        <!-- <router-outlet></router-outlet> -->
-        <div class="position-relative">
-          <h3 class="register-heading">Register a Business</h3>
-          <div class="row register-form">
-            <div class="col-12 px-5">
-              <form
-                class="row g-3 mt-0 mb-5"
-                [formGroup]="registerBusinessGroup"
-                (ngSubmit)="$event.preventDefault(); registerTheBusiness()"
-              >
-                <div class="col-md-6">
-                  <label class="form-label" for="name">Business Name <span>*</span></label>
-                  <input
-                    type="text"
-                    id="name"
-                    class="form-control"
-                    placeholder="Business Name"
-                    formControlName="name"
-                    [class.border-danger]="registerBusinessGroup.get('name')?.invalid && registerBusinessGroup.get('name')?.touched"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label for="type" class="form-label">Type <span>*</span></label>
-                  <select
-                    id="type"
-                    class="form-select"
-                    formControlName="type"
-                    [class.border-danger]="registerBusinessGroup.get('type')?.invalid && registerBusinessGroup.get('type')?.touched"
-                  >
-                    <option value="" disabled>Choose...</option>
-                    <option
-                      *ngFor="let businessType of businessesTypeList;let i = index;"
-                      value="{{businessType.id}}"
-                    >{{businessType.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label for="website" class="form-label">Website</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="website"
-                    placeholder="Eg: https://example.com"
-                    formControlName="website"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label for="logo" class="form-label">Logo</label>
-                  <input
-                    type="file"
-                    class="form-control"
-                    id="logo"
-                    formControlName="logo"
-                  />
-                </div>
-                <div class="col-12">
-                  <label for="description" class="form-label"
-                    >Description</label
-                  >
-                  <textarea
-                    rows="5"
-                    cols="5"
-                    id="description"
-                    name="description"
-                    class="form-control"
-                    placeholder="Brief describe your business here"
-                    formControlName="description"
-                  ></textarea>
-                </div>
-                <div class="col-12">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="isBusinessActive"
-                      formControlName="isBusinessActive"
-                    />
-                    <label class="form-check-label" for="isBusinessActive">
-                      Is this business active by now
-                    </label>
-                  </div>
-                </div>
-                <div class="col-12 d-md-flex justify-content-end">
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    [disabled]="registerBusinessGroup.invalid"
-                  >Register</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <router-outlet></router-outlet>
+        
       </div>
     </div>
   </div>

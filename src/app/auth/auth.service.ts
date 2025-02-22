@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpContext } from '@angular/common/http';
-import { catchError, Observable, throwError, of, tap } from 'rxjs';
+import { catchError, Observable, throwError, of, tap, lastValueFrom, EMPTY, finalize } from 'rxjs';
 import { SignUpUserInterface } from './sign-up/sign-up.interface';
 import { SignInUserInterface } from './sign-in/sign-in.interface';
 import { AuthenticatedUser, TokenResponse } from './auth.interface';
@@ -76,11 +76,11 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if (this.jwtHelper.isTokenExpired()){
-      this.getRefreshToken()
-      return false;
-    }
-    return true;
+    // if (!this.jwtHelper.isTokenExpired())
+    //   return true;
+    // return false;
+
+    return !this.jwtHelper.isTokenExpired() ? true : false;
   }
 
   storeTokens(token: TokenResponse): void {
@@ -93,21 +93,26 @@ export class AuthService {
 
   getRefreshToken() {
     const refresh_token = localStorage.getItem('00_refresh');
-    console.log(refresh_token)
     if (!refresh_token) {
       return of();
     }
-    console.log('refreshToken called')
 
     return this.http.post<TokenResponse>(
       `${environment.apiUrl}auth/token/refresh/`,
-      {refresh: refresh_token},
+      { refresh: refresh_token },
       this.CONTEXT
     )
     .pipe(
-      catchError(() => of()),
+      catchError(
+        (error) => {
+          console.log(error)
+          if (error.status == 401) {
+            this.clearUserData();
+          }
+          return of();
+        }
+      ),
       tap(data => {
-        console.log('refreshToken data')
         this.storeTokens(data);
         // this.scheduleTokenRefresh(data);
       })
@@ -132,6 +137,11 @@ export class AuthService {
 
   logOutUser(): void {
     const refresh_token = localStorage.getItem('00_refresh');
+    // if (!refresh_token) {
+    //   this.router.navigate([AuthRoutes.signIn]);
+    //   return; // Stop further execution
+    // }
+
     this.http.post(
       `${environment.apiUrl}auth/logout/`,
       { refresh: refresh_token },
@@ -140,19 +150,16 @@ export class AuthService {
       takeUntilDestroyed(this.destroyRef),
       catchError((error) => {
         if (error.status == 401) {
-          localStorage.removeItem('00_access');
-          localStorage.removeItem('00_refresh');
-          localStorage.removeItem('00_user');
-          localStorage.removeItem('00_businesses');
+          this.clearUserData();
+          this.router.navigate([AuthRoutes.signIn]);
+          console.log("Navigating due to 401 error");
+          return EMPTY;
         }
         return throwError(() => error);
       })
     )
     .subscribe(() => {
-      localStorage.removeItem('00_access');
-      localStorage.removeItem('00_refresh');
-      localStorage.removeItem('00_user');
-      localStorage.removeItem('00_businesses');
+      this.clearUserData();
       this.currentUserSignal.set(null);
       this.router.navigate([AuthRoutes.signIn]);
     });
@@ -200,6 +207,14 @@ export class AuthService {
     .pipe(catchError(this.handleError))
   }
 
+  private clearUserData() {
+    localStorage.removeItem('00_access');
+    localStorage.removeItem('00_refresh');
+    localStorage.removeItem('00_user');
+    localStorage.removeItem('00_businesses');
+    localStorage.removeItem('00_current_business');
+  }
+
   public redirectToDashbordPage = () => { this.router.navigate([DashboardRoutes.adminDashboard]); }
   public redirectToLoginPage = () => { this.router.navigate([AuthRoutes.signIn]); }
   public redirectToForgotPasswordPage = () => { this.router.navigate([AuthRoutes.forgotPassword]); }
@@ -207,3 +222,4 @@ export class AuthService {
   public redirectToResetPasswordSuccessPage = () => { this.router.navigate([AuthRoutes.resetPasswordSuccess]); }
 
 }
+

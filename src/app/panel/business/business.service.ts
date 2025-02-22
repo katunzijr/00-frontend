@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, Observable, Subject, tap, throwError } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { AddBusinessInterface, BusinessInterface, BusinessTypeInterface, LocalBusinessesInterface, ObjectInterface } from './business.interface';
+import * as bnessInterfaces from './business.interface';
 import { Router } from '@angular/router';
 import { BusinessRoutes } from './business.routes';
 
@@ -19,7 +19,7 @@ export class BusinessService {
   myBusinesses() {
     const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`
 
-    return this.http.get<ObjectInterface<BusinessInterface>>(
+    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessInterface>>(
       url,
       {
         observe: 'response',
@@ -31,8 +31,8 @@ export class BusinessService {
   getMyBusinesses(): Observable<boolean> {
     const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`;
 
-    return this.http.get<ObjectInterface<BusinessInterface>>(url).pipe(
-      map((response: ObjectInterface<BusinessInterface>) => {
+    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessInterface>>(url).pipe(
+      map((response: bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessInterface>) => {
         const businesses = response.results.map((business) => ({
           id: business.id,
           name: business.name
@@ -40,17 +40,14 @@ export class BusinessService {
         if (businesses.length == 0) {
           return false
         }
-        this.storeBusinessesLocally(businesses)
+        localStorage.setItem('00_businesses', JSON.stringify(businesses));
+        this.setCurrentBusinessLocally(businesses[0]);
         return true;
       })
     );
   }
 
-  storeBusinessesLocally(businesses: LocalBusinessesInterface[]): void {
-    localStorage.setItem('00_businesses', JSON.stringify(businesses));
-  }
-
-  loadBusinessesLocally(): LocalBusinessesInterface[] {
+  loadBusinessesLocally(): bnessInterfaces.LocalBusinessInterface[] {
     const userBusinesses = localStorage.getItem('00_businesses');
     if (userBusinesses) {
       const businesses = JSON.parse(userBusinesses)
@@ -59,16 +56,60 @@ export class BusinessService {
     return []
   }
 
-  getBusinessesType(): Observable<BusinessTypeInterface[]> {
+  loadCurrentBusinessLocally(): bnessInterfaces.LocalBusinessInterface | null {
+    const userCurrentBusiness = localStorage.getItem('00_current_business');
+    if (userCurrentBusiness) {
+      const currentBusiness = JSON.parse(userCurrentBusiness)
+      return currentBusiness
+    }
+    return null
+  }
+
+  setCurrentBusinessLocally(selectedBusiness: bnessInterfaces.LocalBusinessInterface) {{
+    localStorage.setItem('00_current_business', JSON.stringify(selectedBusiness));
+  }}
+
+  getBusinessesType(): Observable<bnessInterfaces.BusinessTypeInterface[]> {
     const url = `${environment.apiUrl}api/business/business-types/`;
 
-    return this.http.get<ObjectInterface<BusinessTypeInterface>>(url).pipe(
+    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessTypeInterface>>(url).pipe(
       map(response => response.results)
     );
   }
 
-  registerBusiness(business: AddBusinessInterface) {
+  registerBusiness(business: bnessInterfaces.AddBusinessInterface) {
     const url = `${environment.apiUrl}api/business/businesses/`
+
+    return this.http.post<bnessInterfaces.BusinessInterface>(
+      url,
+      business,
+      {
+        observe: 'response',
+      },
+    )
+    .pipe(
+      tap(response => {
+        if (response.body) {
+          this.setCurrentBusinessLocally({
+            id: response.body.id,
+            name: response.body.name
+          });
+        }
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getBranches(): Observable<bnessInterfaces.BranchInterface[]> {
+    const url = `${environment.apiUrl}api/business/business-branchs/`;
+
+    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BranchInterface>>(url).pipe(
+      map(response => response.results)
+    );
+  }
+
+  registerBranches(business: bnessInterfaces.AddBranchInterface) {
+    const url = `${environment.apiUrl}api/business/business-branchs/`
 
     return this.http.post<object>(
       url,

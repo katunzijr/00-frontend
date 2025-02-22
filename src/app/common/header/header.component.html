@@ -100,6 +100,7 @@
           class="dropdown-item"
           *ngFor="let business of businessList;let i = index;"
           [class.link-warning]="business.id == currentBusiness?.id"
+           (click)="changeBusinessWorkspace(business)"
         >
           <img src="/img/store/store-01.png" alt="Store Logo" class="img-fluid"> {{business.name}}
         </a>

@@ -11,17 +11,23 @@ export const authInterceptor: HttpInterceptorFn = (request: HttpRequest<any>, ne
     return next(request);
   }
 
-  if (authService.isAuthenticated()) {
-    const authenticatedRequest = addAuthorizationHeader(request);
-    return next(authenticatedRequest);
-  }
+  // if (authService.isAuthenticated()) {
+  //   const authenticatedRequest = addAuthorizationHeader(request);
+  //   return next(authenticatedRequest);
+  // }
 
-  return authService.getRefreshToken().pipe(
-    switchMap(() => {
-      const authenticatedRequest = addAuthorizationHeader(request);
-      return next(authenticatedRequest);
-    })
-  );
+  // return authService.getRefreshToken().pipe(
+  //   switchMap(() => {
+  //     const authenticatedRequest = addAuthorizationHeader(request);
+  //     return next(authenticatedRequest);
+  //   })
+  // );
+
+  return authService.isAuthenticated()
+    ? next(addAuthorizationHeader(request))
+    : authService.getRefreshToken().pipe(
+        switchMap(() => next(addAuthorizationHeader(request)))
+      );
 
 };
 

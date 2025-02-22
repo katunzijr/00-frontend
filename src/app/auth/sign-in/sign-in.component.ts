@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { AuthService} from "../auth.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { AuthRoutes } from '../auth.routes';
+import { ToastService } from '../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -29,7 +30,7 @@ export class SignInComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    // private toastService: ToastService,
+    private toastService: ToastService,
   ) {
     this.signInFormGroup = this.fb.group({
       email: ['katunzijr@gmail.com', [Validators.required, Validators.email]],
@@ -37,10 +38,8 @@ export class SignInComponent {
     });
   }
 
-  // sleep = (delay: number | undefined) => new Promise((resolve) => setTimeout(resolve,delay))
   loginTheUser() {
     this.isSigningIn = true
-    // await this.sleep(3000)
     this.authService.logInUser({
       email: this.signInFormGroup.value.email,
       password: this.signInFormGroup.value.password,
@@ -60,14 +59,13 @@ export class SignInComponent {
         // this.authService.currentUserSignal.set(null)
 
         if (error instanceof EvalError || error.status == 0) {
-          // this.toastService.showError('There is an issue with the network. Please try again.');
-          console.log('There is an issue with the network. Please try again.');
+          this.toastService.showError('There is an issue with the network. Please try again.');
         }
         else if(error.status == 403) {
-          console.log(error.error.detail);
+          this.toastService.showError(error.error.detail);
         }
         else if(error.status == 400) {
-          error.error.non_field_errors.forEach((item: string) => {console.log(item)})
+          error.error.non_field_errors.forEach((item: string) => {this.toastService.showError(item);})
         }
         console.log(error)
       }

@@ -7,7 +7,7 @@ import { AuthService } from '../../auth/auth.service';
 import { AuthenticatedUser } from '../../auth/auth.interface';
 import { BusinessService } from '../../panel/business/business.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LocalBusinessesInterface } from '../../panel/business/business.interface';
+import { LocalBusinessInterface } from '../../panel/business/business.interface';
 import { BusinessRoutes } from '../../panel/business/business.routes';
 
 // const icons = {
@@ -43,9 +43,9 @@ export class HeaderComponent implements OnInit{
   authService = inject(AuthService);
   businessService = inject(BusinessService);
   user: AuthenticatedUser | null = null;
-  businessList: LocalBusinessesInterface[] = [];
+  businessList: LocalBusinessInterface[] = [];
   public businessRoutes = BusinessRoutes;
-  currentBusiness: LocalBusinessesInterface | null = null;
+  currentBusiness: LocalBusinessInterface | null = null;
 
   constructor(
     private Router: Router,
@@ -105,8 +105,14 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.businessList = this.businessService.loadBusinessesLocally()
-    this.currentBusiness = this.businessList.length > 0 ? this.businessList[0] : null;
+    this.currentBusiness = this.businessService.loadCurrentBusinessLocally();
+    this.businessList = this.businessService.loadBusinessesLocally();
+  }
+
+  changeBusinessWorkspace(selectedBusiness: LocalBusinessInterface) {
+    this.businessService.setCurrentBusinessLocally(selectedBusiness);
+    this.currentBusiness = selectedBusiness;
+    window.location.reload();
   }
 
 }
