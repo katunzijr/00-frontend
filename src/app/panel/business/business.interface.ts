@@ -1,10 +1,3 @@
-export interface ObjectInterface<T> {
-  count: number,
-  next: string,
-  previous: string,
-  results: T[],
-}
-
 export interface BusinessInterface {
   id: number,
   name: string,

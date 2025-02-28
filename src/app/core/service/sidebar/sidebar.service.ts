@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 // import { routes } from '../../core.index';
 import { DashboardRoutes } from '../../../panel/dashboard/dashboard.routes';
+import { InventoryRoutes } from '../../../panel/inventory/inventory.routes';
 
 @Injectable({
   providedIn: 'root',
@@ -63,7 +64,7 @@ export class SidebarService {
           menuValue: 'Dashboard',
           hasSubRoute: true,
           showSubRoute: true,
-          icon: 'grid',
+          icon: 'fa-solid fa-house-chimney',
           base1: 'dashboard',
 
           subMenus: [
@@ -181,107 +182,107 @@ export class SidebarService {
         // },
       ],
     },
-    // {
-    //   tittle: 'Inventory',
-    //   showAsTab: true,
-    //   separateRoute: false,
-    //   menu: [
-    //     {
-    //       menuValue: 'Products',
-    //       icon: 'box',
-    //       route: routes.productList,
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //     },
-    //     {
-    //       menuValue: 'Create Product',
-    //       icon: 'plus-square',
-    //       route: routes.addProduct,
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //     },
-    //     {
-    //       menuValue: 'Expired Products',
-    //       icon: 'message-square',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.expiredProduct,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Low Stocks',
-    //       icon: 'trending-down',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.lowStock,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Category',
-    //       icon: 'codepen',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.categoryList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Sub Category',
-    //       icon: 'speaker',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.subCategories,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Brands',
-    //       icon: 'tag',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.brandList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Units',
-    //       icon: 'speaker',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.units,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Variant Attributes',
-    //       icon: 'layers',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.varriantAttributes,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Warranties',
-    //       icon: 'bookmark',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.warranty,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Print Barcode',
-    //       icon: 'align-justify',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.barCode,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       menuValue: 'Print QR Code',
-    //       icon: 'maximize',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.qrCode,
-    //       subRoutes: [],
-    //     },
-    //   ],
-    // },
+    {
+      tittle: 'Inventory',
+      showAsTab: true,
+      separateRoute: false,
+      menu: [
+        {
+          menuValue: 'Products',
+          icon: 'fa-brands fa-product-hunt',
+          route: InventoryRoutes.productList,
+          hasSubRoute: false,
+          showSubRoute: false,
+        },
+        {
+          menuValue: 'Create Product',
+          icon: 'fa-regular fa-square-plus',
+          route: InventoryRoutes.addProduct,
+          hasSubRoute: false,
+          showSubRoute: false,
+        },
+        {
+          menuValue: 'Expired Products',
+          icon: 'fa-solid fa-explosion',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.expiredProducts,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Low Stocks',
+          icon: 'fa-solid fa-boxes-stacked',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.lowStock,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Category',
+          icon: 'fa-solid fa-layer-group',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.categoryList,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Sub Category',
+          icon: 'fa-solid fa-subscript',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.subCategories,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Brands',
+          icon: 'fa-solid fa-tags',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.brandList,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Units',
+          icon: 'fa-brands fa-unity',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.units,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Variant Attributes',
+          icon: 'fa-solid fa-square-root-variable',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.varriantAttributes,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Warranties',
+          icon: 'fa-solid fa-medal',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.warranty,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Print Barcode',
+          icon: 'fa-solid fa-barcode',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.barcode,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Print QR Code',
+          icon: 'fa-solid fa-qrcode',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.qrcode,
+          subRoutes: [],
+        },
+      ],
+    },
     // {
     //   tittle: 'Stock',
     //   showAsTab: true,
@@ -1750,13 +1751,13 @@ export class SidebarService {
     {
       tittle: 'Main Menu',
       hasSubRoute: true,
-      icon: 'assets/img/icons/menu-icon.svg',
+      icon: '/img/icons/menu-icon.svg',
       showSubRoute: false,
       subRoutes: [
         {
           tittle: 'Dashboard',
           hasSubRoute: true,
-          icon: 'assets/img/icons/dashboard.svg',
+          icon: '/img/icons/dashboard.svg',
           showSubRoute: true,
           route: DashboardRoutes.dashboard,
           subRoutes: [
@@ -1875,99 +1876,107 @@ export class SidebarService {
         // },
       ],
     },
-    // {
-    //   tittle: 'Inventory',
-    //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/product.svg',
-    //   showSubRoute: false,
-    //   activeRoute: 'product',
-    //   subRoutes: [
-    //     {
-    //       tittle: 'Products',
-    //       hasSubRoute: false,
-    //       showSubRoute: true,
-    //       route: routes.productList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Create Product',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.addProduct,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Expired Products',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.expiredProduct,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Low Stocks',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.lowStock,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Category',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.categoryList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Sub Category',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.subCategories,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Brands',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.brandList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Units',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.units,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Variant Attributes',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.varriantAttributes,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Warranties',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.warranty,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Print Barcode',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.barCode,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Print QR Code',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.qrCode,
-    //       subRoutes: [],
-    //     },
-    //   ],
-    // },
+    {
+      tittle: 'Inventory',
+      showAsTab: true,
+      separateRoute: false,
+      menu: [
+        {
+          menuValue: 'Products',
+          icon: 'fa-brands fa-product-hunt',
+          route: InventoryRoutes.productList,
+          hasSubRoute: false,
+          showSubRoute: false,
+        },
+        {
+          menuValue: 'Create Product',
+          icon: 'fa-regular fa-square-plus',
+          route: InventoryRoutes.addProduct,
+          hasSubRoute: false,
+          showSubRoute: false,
+        },
+        {
+          menuValue: 'Expired Products',
+          icon: 'fa-solid fa-explosion',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.expiredProducts,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Low Stocks',
+          icon: 'fa-solid fa-boxes-stacked',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.lowStock,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Category',
+          icon: 'fa-solid fa-layer-group',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.categoryList,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Sub Category',
+          icon: 'fa-solid fa-subscript',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.subCategories,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Brands',
+          icon: 'fa-solid fa-tags',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.brandList,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Units',
+          icon: 'fa-brands fa-unity',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.units,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Variant Attributes',
+          icon: 'fa-solid fa-square-root-variable',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.varriantAttributes,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Warranties',
+          icon: 'fa-solid fa-medal',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.warranty,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Print Barcode',
+          icon: 'fa-solid fa-barcode',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.barcode,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Print QR Code',
+          icon: 'fa-solid fa-qrcode',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.qrcode,
+          subRoutes: [],
+        },
+      ],
+    },
     // {
     //   tittle: 'Sales',
     //   hasSubRoute: true,
@@ -2014,7 +2023,7 @@ export class SidebarService {
     // {
     //   tittle: 'Purchases',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/purchase1.svg',
+    //   icon: '/img/icons/purchase1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2088,7 +2097,7 @@ export class SidebarService {
     // {
     //   tittle: 'Customers',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/users1.svg',
+    //   icon: '/img/icons/users1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2125,7 +2134,7 @@ export class SidebarService {
     // {
     //   tittle: 'Employees',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/product.svg',
+    //   icon: '/img/icons/product.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2240,7 +2249,7 @@ export class SidebarService {
     // {
     //   tittle: 'Sales Report',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/users1.svg',
+    //   icon: '/img/icons/users1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2319,7 +2328,7 @@ export class SidebarService {
     // {
     //   tittle: 'Pages',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/purchase1.svg',
+    //   icon: '/img/icons/purchase1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2429,7 +2438,7 @@ export class SidebarService {
     // {
     //   tittle: 'User Management',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/printer.svg',
+    //   icon: '/img/icons/printer.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2457,7 +2466,7 @@ export class SidebarService {
     //     {
     //       tittle: 'Base UI',
     //       hasSubRoute: true,
-    //       icon: 'assets/img/icons/printer.svg',
+    //       icon: '/img/icons/printer.svg',
     //       showSubRoute: false,
     //       activeRoute: 'users',
     //       subRoutes: [
@@ -2825,7 +2834,7 @@ export class SidebarService {
     // {
     //   tittle: 'Settings',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/product.svg',
+    //   icon: '/img/icons/product.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -2920,7 +2929,7 @@ export class SidebarService {
     //     {
     //       tittle: 'App Settings',
     //       hasSubRoute: true,
-    //       icon: 'assets/img/icons/printer.svg',
+    //       icon: '/img/icons/printer.svg',
     //       showSubRoute: false,
     //       activeRoute: 'users',
     //       subRoutes: [
@@ -3054,13 +3063,13 @@ export class SidebarService {
     {
       tittle: 'Main Menu',
       hasSubRoute: true,
-      icon: 'assets/img/icons/menu-icon.svg',
+      icon: '/img/icons/menu-icon.svg',
       showSubRoute: false,
       subRoutes: [
         {
           tittle: 'Dashboard',
           hasSubRoute: true,
-          icon: 'assets/img/icons/dashboard.svg',
+          icon: '/img/icons/dashboard.svg',
           showSubRoute: true,
           route: DashboardRoutes.dashboard,
           subRoutes: [
@@ -3179,103 +3188,111 @@ export class SidebarService {
         // },
       ],
     },
-    // {
-    //   tittle: 'Inventory',
-    //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/product.svg',
-    //   showSubRoute: false,
-    //   activeRoute: 'product',
-    //   subRoutes: [
-    //     {
-    //       tittle: 'Products',
-    //       hasSubRoute: false,
-    //       showSubRoute: true,
-    //       route: routes.productList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Create Product',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.addProduct,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Expired Products',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.expiredProduct,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Low Stocks',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.lowStock,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Category',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.categoryList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Sub Category',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.subCategories,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Brands',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.brandList,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Units',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.units,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Variant Attributes',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.varriantAttributes,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Warranties',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.warranty,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Print Barcode',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.barCode,
-    //       subRoutes: [],
-    //     },
-    //     {
-    //       tittle: 'Print QR Code',
-    //       hasSubRoute: false,
-    //       showSubRoute: false,
-    //       route: routes.qrCode,
-    //       subRoutes: [],
-    //     },
-    //   ],
-    // },
+    {
+      tittle: 'Inventory',
+      showAsTab: true,
+      separateRoute: false,
+      menu: [
+        {
+          menuValue: 'Products',
+          icon: 'fa-brands fa-product-hunt',
+          route: InventoryRoutes.productList,
+          hasSubRoute: false,
+          showSubRoute: false,
+        },
+        {
+          menuValue: 'Create Product',
+          icon: 'fa-regular fa-square-plus',
+          route: InventoryRoutes.addProduct,
+          hasSubRoute: false,
+          showSubRoute: false,
+        },
+        {
+          menuValue: 'Expired Products',
+          icon: 'fa-solid fa-explosion',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.expiredProducts,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Low Stocks',
+          icon: 'fa-solid fa-boxes-stacked',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.lowStock,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Category',
+          icon: 'fa-solid fa-layer-group',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.categoryList,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Sub Category',
+          icon: 'fa-solid fa-subscript',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.subCategories,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Brands',
+          icon: 'fa-solid fa-tags',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.brandList,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Units',
+          icon: 'fa-brands fa-unity',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.units,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Variant Attributes',
+          icon: 'fa-solid fa-square-root-variable',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.varriantAttributes,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Warranties',
+          icon: 'fa-solid fa-medal',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.warranty,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Print Barcode',
+          icon: 'fa-solid fa-barcode',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.barcode,
+          subRoutes: [],
+        },
+        {
+          menuValue: 'Print QR Code',
+          icon: 'fa-solid fa-qrcode',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: InventoryRoutes.qrcode,
+          subRoutes: [],
+        },
+      ],
+    },
     // {
     //   tittle: 'Sales & Purchase',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/purchase1.svg',
+    //   icon: '/img/icons/purchase1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -3325,7 +3342,7 @@ export class SidebarService {
     //     {
     //       tittle: 'Purchases',
     //       hasSubRoute: true,
-    //       icon: 'assets/img/icons/purchase1.svg',
+    //       icon: '/img/icons/purchase1.svg',
     //       showSubRoute: false,
     //       activeRoute: 'users',
     //       subRoutes: [
@@ -3401,7 +3418,7 @@ export class SidebarService {
     // {
     //   tittle: 'User Management',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/users1.svg',
+    //   icon: '/img/icons/users1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -3430,7 +3447,7 @@ export class SidebarService {
     //     {
     //       tittle: 'Base UI',
     //       hasSubRoute: true,
-    //       icon: 'assets/img/icons/printer.svg',
+    //       icon: '/img/icons/printer.svg',
     //       showSubRoute: false,
     //       activeRoute: 'users',
     //       subRoutes: [
@@ -3850,7 +3867,7 @@ export class SidebarService {
     // {
     //   tittle: 'Profile',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/users1.svg',
+    //   icon: '/img/icons/users1.svg',
     //   showSubRoute: false,
     //   subRoutes: [
     //     {
@@ -3923,7 +3940,7 @@ export class SidebarService {
     // {
     //   tittle: 'Reports',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/printer.svg',
+    //   icon: '/img/icons/printer.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -4002,7 +4019,7 @@ export class SidebarService {
     // {
     //   tittle: 'Settings',
     //   hasSubRoute: true,
-    //   icon: 'assets/img/icons/purchase1.svg',
+    //   icon: '/img/icons/purchase1.svg',
     //   showSubRoute: false,
     //   activeRoute: 'users',
     //   subRoutes: [
@@ -4097,7 +4114,7 @@ export class SidebarService {
     //     {
     //       tittle: 'App Settings',
     //       hasSubRoute: true,
-    //       icon: 'assets/img/icons/printer.svg',
+    //       icon: '/img/icons/printer.svg',
     //       showSubRoute: false,
     //       activeRoute: 'users',
     //       subRoutes: [
@@ -4302,19 +4319,19 @@ export class SidebarService {
   ];
   public videocall = [
     {
-      img: 'assets/img/avatar/no-dp-1.jpg',
+      img: '/img/avatar/no-dp-1.jpg',
       name: 'Barbara',
     },
     {
-      img: 'assets/img/avatar/no-dp-1.jpg',
+      img: '/img/avatar/no-dp-1.jpg',
       name: 'Linnea',
     },
     {
-      img: 'assets/img/avatar/no-dp-1.jpg',
+      img: '/img/avatar/no-dp-1.jpg',
       name: 'Richard',
     },
     {
-      img: 'assets/img/avatar/no-dp-1.jpg',
+      img: '/img/avatar/no-dp-1.jpg',
       name: 'Freda',
     },
   ];

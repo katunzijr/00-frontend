@@ -8,6 +8,7 @@ import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoggingInterceptor } from './app.logging.interceptor';
 import { ErrorInterceptor } from './error-page/errors.interceptor';
+import { SpinnerInterceptor } from './core/interceptor/spinner/spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +35,11 @@ export const appConfig: ApplicationConfig = {
       useClass: LoggingInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    }
     // { // old ways
     //   provide: APP_INITIALIZER,
     //   useFactory: initializerFactory,

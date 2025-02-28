@@ -1,3 +1,17 @@
+export interface ObjectInterface<T> {
+  count: number,
+  next: string,
+  previous: string,
+  results: T[],
+}
+
+// To be delete
+export interface apiResultFormat {
+  data: [];
+  totalData: number;
+}
+
+
 export interface countries {
   CountryName?: number;
   Region?: string;
@@ -258,7 +272,7 @@ export interface expenseList {
   categoryName?: string;
   reference?: string;
   date?: string;
-  
+
   status?: string;
   amount?: string;
   description?: string;
@@ -612,7 +626,7 @@ export interface payrollList {
   img: string;
   sNo: number;
   isSelected?: boolean;
-  
+
 
 }
 export interface salesReport {
@@ -677,7 +691,7 @@ export interface quotationList {
   status: string;
   grandTotal: string;
   isSelected?: boolean;
-  
+
 
 }
 export interface qrCode {
@@ -899,7 +913,7 @@ export interface pospurchase {
   reference: string;
   customer: string;
   amount: string;
- 
+
 }
 export interface videocall {
   sNo: number;

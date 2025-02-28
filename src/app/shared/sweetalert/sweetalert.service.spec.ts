@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SidebarService } from './sidebar.service';
+import { SweetalertService } from './sweetalert.service';
 
-describe('SidebarService', () => {
-  let service: SidebarService;
+describe('SweetalertService', () => {
+  let service: SweetalertService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SidebarService);
+    service = TestBed.inject(SweetalertService);
   });
 
   it('should be created', () => {

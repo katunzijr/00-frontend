@@ -10,7 +10,7 @@
               @for (menu of mainTittle?.menu; track menu) {
               @if (menu?.hasSubRoute === false) {
               <li routerLinkActive="active">
-                <a class="sub-active" [routerLink]="menu?.route"><i class="feather" [class]="'icon-' + menu.icon"></i>
+                <a class="sub-active" [routerLink]="menu?.route"><i [class]="menu.icon"></i>
                   <span>{{ menu?.menuValue }}</span>
                 </a>
               </li>
@@ -20,7 +20,7 @@
                 <a class="sub-active" href="javascript:void(0)" (click)="expandSubMenus(menu)"
                   [ngClass]="{ 'subdrop': menu.showSubRoute === true}"
                   [class.active]="base === menu.base1 || base === menu.base || page === menu.page">
-                  <i class="feather" [class]="'icon-' + menu.icon"></i>
+                  <i [class]="menu.icon"></i>
                   <span>{{ menu.menuValue }}</span>
                   <span class="menu-arrow"></span>
                 </a>

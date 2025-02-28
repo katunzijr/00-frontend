@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import * as bnessInterfaces from './business.interface';
 import { Router } from '@angular/router';
 import { BusinessRoutes } from './business.routes';
+import { ObjectInterface } from '../../shared/model/page.model';
 
 
 @Injectable({
@@ -19,7 +20,7 @@ export class BusinessService {
   myBusinesses() {
     const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`
 
-    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessInterface>>(
+    return this.http.get<ObjectInterface<bnessInterfaces.BusinessInterface>>(
       url,
       {
         observe: 'response',
@@ -31,8 +32,8 @@ export class BusinessService {
   getMyBusinesses(): Observable<boolean> {
     const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`;
 
-    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessInterface>>(url).pipe(
-      map((response: bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessInterface>) => {
+    return this.http.get<ObjectInterface<bnessInterfaces.BusinessInterface>>(url).pipe(
+      map((response: ObjectInterface<bnessInterfaces.BusinessInterface>) => {
         const businesses = response.results.map((business) => ({
           id: business.id,
           name: business.name
@@ -72,7 +73,7 @@ export class BusinessService {
   getBusinessesType(): Observable<bnessInterfaces.BusinessTypeInterface[]> {
     const url = `${environment.apiUrl}api/business/business-types/`;
 
-    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BusinessTypeInterface>>(url).pipe(
+    return this.http.get<ObjectInterface<bnessInterfaces.BusinessTypeInterface>>(url).pipe(
       map(response => response.results)
     );
   }
@@ -103,7 +104,7 @@ export class BusinessService {
   getBranches(): Observable<bnessInterfaces.BranchInterface[]> {
     const url = `${environment.apiUrl}api/business/business-branchs/`;
 
-    return this.http.get<bnessInterfaces.ObjectInterface<bnessInterfaces.BranchInterface>>(url).pipe(
+    return this.http.get<ObjectInterface<bnessInterfaces.BranchInterface>>(url).pipe(
       map(response => response.results)
     );
   }
