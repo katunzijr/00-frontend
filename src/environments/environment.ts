@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://backend.eyesondigit.com/'
+  apiUrl: 'https://backend.eyesondigits.com/'
 };
 
 /*

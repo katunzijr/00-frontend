@@ -33,8 +33,8 @@ export class SignInComponent {
     private toastService: ToastService,
   ) {
     this.signInFormGroup = this.fb.group({
-      email: ['katunzijr@gmail.com', [Validators.required, Validators.email]],
-      password: ['Mu12345678.', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
   }
 
