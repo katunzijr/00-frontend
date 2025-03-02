@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
-  selector: 'app-product-details',
+  selector: 'app-view-product',
   standalone: true,
   imports: [
     CarouselModule,
   ],
-  templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.scss'
+  templateUrl: './view-product.component.html',
+  styleUrl: './view-product.component.scss'
 })
-export class ProductDetailsComponent {
+export class ViewProductComponent {
 
   customOptions: OwlOptions = {
     loop: true,

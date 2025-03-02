@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, Observable, Subject, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, Subject, tap, throwError } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import * as bnessInterfaces from './business.interface';
@@ -45,6 +45,14 @@ export class BusinessService {
         this.setCurrentBusinessLocally(businesses[0]);
         return true;
       })
+    );
+  }
+
+  getBusinesses(): Observable<bnessInterfaces.BusinessInterface[]> {
+    const url = `${environment.apiUrl}api/business/businesses/`;
+
+    return this.http.get<ObjectInterface<bnessInterfaces.BusinessInterface>>(url).pipe(
+      map(response => response.results)
     );
   }
 
@@ -122,8 +130,9 @@ export class BusinessService {
     .pipe(catchError(this.handleError))
   }
 
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    return throwError(() => error);
+  private handleError = (error: HttpErrorResponse): Observable<never> => {
+
+    return of();
   };
 
 }

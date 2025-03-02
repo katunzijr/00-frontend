@@ -1,28 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticatedUser } from '../../../auth/auth.interface';
-import { AuthService } from '../../../auth/auth.service';
-import { BusinessRoutes } from '../business.routes';
-import { BusinessService } from '../business.service';
-import { ToastService } from '../../../shared/toast/toast.service';
+import { AuthenticatedUser } from '../../../../auth/auth.interface';
+import { AuthService } from '../../../../auth/auth.service';
+import { BusinessRoutes } from '../../business.routes';
+import { BusinessService } from '../../business.service';
+import { ToastService } from '../../../../shared/toast/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { DashboardRoutes } from '../../dashboard/dashboard.routes';
-import { LocalBusinessInterface } from '../business.interface';
+import { DashboardRoutes } from '../../../dashboard/dashboard.routes';
+import { LocalBusinessInterface } from '../../business.interface';
 
 @Component({
-  selector: 'app-add-branches',
+  selector: 'app-quick-add-branches',
   standalone: true,
   imports: [
     CommonModule,
     RouterLink,
     ReactiveFormsModule
   ],
-  templateUrl: './add-branch.component.html',
-  styleUrl: './add-branch.component.scss'
+  templateUrl: './quick-add-branch.component.html',
+  styleUrl: './quick-add-branch.component.scss'
 })
-export class AddBranchesComponent {
+export class QuickAddBranchesComponent {
   registerBranchGroup: FormGroup;
   user: AuthenticatedUser | null = null;
   authService = inject(AuthService);

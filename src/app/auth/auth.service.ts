@@ -1,18 +1,16 @@
 import { HttpClient, HttpErrorResponse, HttpContext } from '@angular/common/http';
 import { catchError, Observable, throwError, of, tap, lastValueFrom, EMPTY, finalize } from 'rxjs';
-import { SignUpUserInterface } from './sign-up/sign-up.interface';
-import { SignInUserInterface } from './sign-in/sign-in.interface';
-import { AuthenticatedUser, TokenResponse } from './auth.interface';
+import { AuthenticatedUser, ResetPasswordInterface, SignInUserInterface, SignUpUserInterface, TokenResponse } from './auth.interface';
 import { DestroyRef, Injectable, inject, signal, WritableSignal } from '@angular/core';
 import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { IS_PUBLIC } from "./auth.interceptor";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { environment } from '../../environments/environment';
-import { ResetPasswordInterface } from './reset-password/reset-password.interface';
 import { TwoStepVerificationInterface } from './two-step-verification/two-step-verification.interface';
 import { DashboardRoutes } from '../panel/dashboard/dashboard.routes';
 import { AuthRoutes } from './auth.routes';
+import { ToastService } from '../shared/toast/toast.service';
 
 
 @Injectable({
@@ -24,6 +22,7 @@ export class AuthService {
   private readonly router = inject(Router);
   private readonly jwtHelper = inject(JwtHelperService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toastService = inject(ToastService);
   private readonly CONTEXT = {context: new HttpContext().set(IS_PUBLIC, true)};
   private readonly TOKEN_EXPIRY_THRESHOLD_MINUTES = 1;
 
@@ -55,10 +54,6 @@ export class AuthService {
     )
     .pipe(catchError(this.handleError))
   }
-
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    return throwError(() => error);
-  };
 
   getUserData(): void {
     const userDataString = localStorage.getItem('00_user');
@@ -214,6 +209,11 @@ export class AuthService {
     localStorage.removeItem('00_businesses');
     localStorage.removeItem('00_current_business');
   }
+
+  private handleError = (error: HttpErrorResponse): Observable<never> => {
+
+    return of();
+  };
 
   public redirectToDashbordPage = () => { this.router.navigate([DashboardRoutes.adminDashboard]); }
   public redirectToLoginPage = () => { this.router.navigate([AuthRoutes.signIn]); }

@@ -59,13 +59,16 @@
               <div class="col-6">
                 <div class="custom-control custom-checkbox custom-class-check">
                   <label class="checkboxs ps-4 mb-0 pb-0 line-height-1">
-                    <input type="checkbox">
+                    <input
+                      type="checkbox"
+                      formControlName="rememberMe"
+                    >
                     <span class="checkmarks"></span>Remember me
                   </label>
                 </div>
               </div>
               <div class="col-6 text-end">
-                <a class="forgot-link" [routerLink]="authRoutes.forgotPassword">Forgot Password?</a>
+                <a class="forgot-link" [routerLink]="'/'+routes.forgotPassword">Forgot Password?</a>
               </div>
             </div>
           </div>
@@ -85,7 +88,7 @@
             </button>
           </div>
           <div class="signinform">
-            <h4>New on our platform?<a [routerLink]="authRoutes.signUp" class="hover-a"> Create an account</a></h4>
+            <h4>New on our platform?<a [routerLink]="'/'+routes.signUp" class="hover-a"> Create an account</a></h4>
           </div>
           <div class="form-setlogin or-text">
             <h4>OR</h4>

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthRoutes } from '../auth.routes';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,11 +12,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    RouterLink,
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent {
+  public readonly routes = AuthRoutes;
   public password : boolean[] = [false];
 
   public togglePassword(index: number){
@@ -48,21 +51,6 @@ export class ResetPasswordComponent {
         // ...
         this.authService.redirectToResetPasswordSuccessPage();
       },
-      error: (error: HttpErrorResponse): void => {
-        // this.authService.currentUserSignal.set(null)
-
-        if (error instanceof EvalError || error.status == 0) {
-          // this.toastService.showError('There is an issue with the network. Please try again.');
-          console.log('There is an issue with the network. Please try again.');
-        }
-        else if(error.status == 403) {
-          console.log(error.error.detail);
-        }
-        else if(error.status == 400) {
-          error.error.non_field_errors.forEach((item: string) => {console.log(item)})
-        }
-        console.log(error)
-      }
     })
   }
 

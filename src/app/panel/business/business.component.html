@@ -1,17 +1,1 @@
-<div class="container">
-  <div class="register">
-    <div class="row">
-      <div class="col-md-3 register-left">
-        <img src="/img/eyesondigit-logo-icon.png" alt="" />
-        <h3>Hello {{user?.first_name ? user?.first_name : user?.username}}</h3>
-        <p>Tell us a little about your business.</p>
-        <input type="button" class="home-button" value="Home" [routerLink]="['/']" /><br />
-        <input type="button" class="logout-button text-danger" value="Log Out" (click)="authService.logOutUser()" /><br />
-      </div>
-      <div class="col-md-9 register-right">
-        <router-outlet></router-outlet>
-        
-      </div>
-    </div>
-  </div>
-</div>
+<router-outlet></router-outlet>

@@ -102,7 +102,7 @@
           <button class="btn btn-login" type="submit" [disabled]="signUpFormGroup.invalid">Sign Up</button>
         </div>
         <div class="signinform">
-          <h4>Already have an account ? <a href="/auth/sign-in" class="hover-a">Sign In Instead</a></h4>
+          <h4>Already have an account ? <a [routerLink]="'/'+routes.signIn" class="hover-a">Sign In Instead</a></h4>
         </div>
         <div class="form-setlogin or-text">
           <h4>OR</h4>

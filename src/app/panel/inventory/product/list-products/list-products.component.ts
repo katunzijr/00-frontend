@@ -12,8 +12,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { CustomPaginationModule } from '../../../../shared/custom-pagination/custom-pagination.module';
 import { CommonModule } from '@angular/common';
+import { ProductService } from '../product.service';
+import { ProductInterface } from '../product.interface';
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-list-product',
   standalone: true,
   imports: [
     MatSelectModule,
@@ -22,10 +24,10 @@ import { CommonModule } from '@angular/common';
     CustomPaginationModule,
     CommonModule,
   ],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss',
+  templateUrl: './list-products.component.html',
+  styleUrl: './list-products.component.scss',
 })
-export class ProductListComponent {
+export class ListProductsComponent {
   initChecked = false;
   selectedValue1 = '';
   selectedValue2 = '';
@@ -53,6 +55,8 @@ export class ProductListComponent {
   selectedValue24 = '';
   selectedValue25 = '';
   selectedValue26 = '';
+  public productList: any;
+
 
   public routes = InventoryRoutes;
   // pagination variables
@@ -70,15 +74,25 @@ export class ProductListComponent {
     private pagination: PaginationService,
     private router: Router,
     private sidebar: SidebarService,
+    private productService: ProductService,
   ) {
     this.data.getDataTable().subscribe((apiRes: apiResultFormat) => {
       this.totalData = apiRes.totalData;
       this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
-        if (this.router.url == this.routes.productList) {
-          this.getTableData({ skip: res.skip, limit: this.totalData  });
+        if (this.router.url == this.routes.listProducts) {
+          this.getTableData({ skip: res.skip, limit: this.totalData });
           this.pageSize = res.pageSize;
         }
       });
+    });
+    this.getTheProducts();
+  }
+
+  getTheProducts(){
+    this.productService.getProducts().subscribe({
+      next: (data): void => {
+        this.productList = data
+      }
     });
   }
 

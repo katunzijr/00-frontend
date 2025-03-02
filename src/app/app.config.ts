@@ -1,13 +1,12 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { authInterceptor } from './auth/auth.interceptor';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoggingInterceptor } from './app.logging.interceptor';
-import { ErrorInterceptor } from './error-page/errors.interceptor';
+import { ErrorInterceptor } from './error/errors.interceptor';
 import { SpinnerInterceptor } from './core/interceptor/spinner/spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -16,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withFetch(),
+      withInterceptorsFromDi(),
       withInterceptors([authInterceptor])
     ),
     importProvidersFrom([
@@ -25,20 +25,20 @@ export const appConfig: ApplicationConfig = {
         }
       })
     ]),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoggingInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: LoggingInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
     }
     // { // old ways
     //   provide: APP_INITIALIZER,

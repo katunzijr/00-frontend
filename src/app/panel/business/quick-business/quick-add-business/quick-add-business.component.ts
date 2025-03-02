@@ -1,27 +1,27 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { BusinessRoutes } from '../business.routes';
-import { AuthenticatedUser } from '../../../auth/auth.interface';
-import { AuthService } from '../../../auth/auth.service';
-import { BusinessTypeInterface } from '../business.interface';
+import { BusinessRoutes } from '../../business.routes';
+import { AuthenticatedUser } from '../../../../auth/auth.interface';
+import { AuthService } from '../../../../auth/auth.service';
+import { BusinessTypeInterface } from '../../business.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BusinessService } from '../business.service';
-import { ToastService } from '../../../shared/toast/toast.service';
+import { BusinessService } from '../../business.service';
+import { ToastService } from '../../../../shared/toast/toast.service';
 import { CommonModule } from '@angular/common';
 import { Route, Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-add-business',
+  selector: 'app-quick-add-business',
   standalone: true,
   imports: [
     CommonModule,
     RouterLink,
     ReactiveFormsModule
   ],
-  templateUrl: './add-business.component.html',
-  styleUrl: './add-business.component.scss'
+  templateUrl: './quick-add-business.component.html',
+  styleUrl: './quick-add-business.component.scss'
 })
-export class AddBusinessComponent implements OnInit {
+export class QuickAddBusinessComponent implements OnInit {
   public businessRoutes = BusinessRoutes;
   registerBusinessGroup: FormGroup;
   user: AuthenticatedUser | null = null;
@@ -102,6 +102,27 @@ export class AddBusinessComponent implements OnInit {
         this.toastService.showSuccess('Business created successful.');
         this.router.navigate([BusinessRoutes.quickAddBranches]);
       },
+      error: (error: HttpErrorResponse): void => {
+        this.isRegisteringBusiness = false
+        if (error instanceof EvalError || error.status == 0) {
+          this.toastService.showError('There is an issue with the network. Please try again.');
+        }
+        else if (error.status == 403) {
+          console.log(error.error.detail);
+        }
+        else if (error.status == 400) {
+          if (error.error.username) {
+            error.error.username.forEach((item: string) => {console.log(item)})
+          }
+          else if (error.error.email) {
+            error.error.email.forEach((item: string) => {console.log(item)})
+          }
+          else if (error.error.non_field_errors) {
+            error.error.non_field_errors.forEach((item: string) => {console.log(item)})
+          }
+        }
+        // console.log(error)
+      }
     })
   }
 

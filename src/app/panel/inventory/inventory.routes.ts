@@ -11,10 +11,10 @@ import { LowStocksComponent } from './stock/low-stocks/low-stocks.component';
 import { StockComponent } from './stock/stock.component';
 import { ProductComponent } from './product/product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
-import { ProductListComponent } from './product/product-list/product-list.component';
+import { ListProductsComponent } from './product/list-products/list-products.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { ExpiredProductsComponent } from './product/expired-products/expired-products.component';
-import { ProductDetailsComponent } from './product/product-details/product-details.component';
+import { ViewProductComponent } from './product/view-product/view-product.component';
 import { CategoryComponent } from './category/category.component';
 import { SubCategoriesComponent } from './category/sub-categories/sub-categories.component';
 
@@ -67,8 +67,8 @@ export class InventoryRoutes {
   public static get editProduct(): string {
     return this.product + '/edit-product';
   }
-  public static get productList(): string {
-    return this.product + '/product-list';
+  public static get listProducts(): string {
+    return this.product + '/list-products';
   }
   public static get addProduct(): string {
     return this.inventory + '/add-product';
@@ -76,8 +76,8 @@ export class InventoryRoutes {
   public static get expiredProducts(): string {
     return this.inventory + '/expired-products';
   }
-  public static get productDetails(): string {
-    return this.inventory + '/product-details';
+  public static get viewProduct(): string {
+    return this.inventory + '/view-product';
   }
 }
 
@@ -113,12 +113,12 @@ export const INVENTORY_ROUTES: Routes = [
         path: '',
         component: ProductComponent,
         children: [
-          { path: InventoryRoutes.product, pathMatch: 'full', redirectTo: InventoryRoutes.productList },
-          { path: InventoryRoutes.productList, component: ProductListComponent, },
+          { path: InventoryRoutes.product, pathMatch: 'full', redirectTo: InventoryRoutes.listProducts },
+          { path: InventoryRoutes.listProducts, component: ListProductsComponent, },
           { path: InventoryRoutes.editProduct, component: EditProductComponent, },
           { path: InventoryRoutes.addProduct, component: AddProductComponent, },
           { path: InventoryRoutes.expiredProducts, component: ExpiredProductsComponent, },
-          { path: InventoryRoutes.productDetails, component: ProductDetailsComponent, },
+          { path: InventoryRoutes.viewProduct, component: ViewProductComponent, },
         ],
       }
     ],

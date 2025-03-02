@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AuthRoutes } from '../auth.routes';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,21 +12,22 @@ import { CommonModule } from '@angular/common';
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    RouterLink,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent {
+  public readonly routes = AuthRoutes;
 
   forgotPasswordGroup: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    // private toastService: ToastService,
   ) {
     this.forgotPasswordGroup = this.fb.group({
-      email: ['minachekagatu@gmail.com', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -39,21 +41,6 @@ export class ForgotPasswordComponent {
         // ...
         this.authService.redirectToResetPasswordPage();
       },
-      error: (error: HttpErrorResponse): void => {
-        // this.authService.currentUserSignal.set(null)
-
-        if (error instanceof EvalError || error.status == 0) {
-          // this.toastService.showError('There is an issue with the network. Please try again.');
-          console.log('There is an issue with the network. Please try again.');
-        }
-        else if(error.status == 403) {
-          console.log(error.error.detail);
-        }
-        else if(error.status == 400) {
-          error.error.non_field_errors.forEach((item: string) => {console.log(item)})
-        }
-        console.log(error)
-      }
     })
   }
 

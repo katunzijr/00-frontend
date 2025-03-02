@@ -11,31 +11,34 @@ import { ResetPasswordSuccessComponent } from './reset-password-success/reset-pa
 import { accountGuard } from './auth.guard';
 
 export class AuthRoutes {
-  private static base = 'auth';
+  private static base = '';
 
+  public static get auth(): string {
+    return this.base + 'auth';
+  }
   public static get signIn(): string {
-    return this.base + '/sign-in';
+    return this.auth + '/sign-in';
   }
   public static get signUp(): string {
-    return this.base + '/sign-up';
+    return this.auth + '/sign-up';
   }
   public static get forgotPassword(): string {
-    return this.base + '/forgot-password';
+    return this.auth + '/forgot-password';
   }
   public static get emailVerification(): string {
-    return this.base + '/email-verification';
+    return this.auth + '/email-verification';
   }
   public static get lockScreen(): string {
-    return this.base + '/lock-screen';
+    return this.auth + '/lock-screen';
   }
   public static get resetPassword(): string {
-    return this.base + '/reset-password';
+    return this.auth + '/reset-password';
   }
   public static get resetPasswordSuccess(): string {
-    return this.base + '/reset-password-success';
+    return this.auth + '/reset-password-success';
   }
   public static get twoStepVerification(): string {
-    return this.base + '/two-step-verification';
+    return this.auth + '/two-step-verification';
   }
 }
 
