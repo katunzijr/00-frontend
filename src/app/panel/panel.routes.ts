@@ -12,7 +12,7 @@ export const PANEL_ROUTES: Routes = [
     component: PanelComponent,
     canActivate: [
       authenticationGuard,
-      // businessGuard,
+      businessGuard,
     ],
     children: [
       {

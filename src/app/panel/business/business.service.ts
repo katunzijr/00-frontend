@@ -48,12 +48,11 @@ export class BusinessService {
     );
   }
 
-  getBusinesses(): Observable<bnessInterfaces.BusinessInterface[]> {
-    const url = `${environment.apiUrl}api/business/businesses/`;
+  getBusinesses(): Observable<ObjectInterface<bnessInterfaces.BusinessInterface>> {
+    // const url = `${environment.apiUrl}api/business/businesses/`;
+    const url = `${environment.apiUrl}api/business/businesses/mybusinesses/`;
 
-    return this.http.get<ObjectInterface<bnessInterfaces.BusinessInterface>>(url).pipe(
-      map(response => response.results)
-    );
+    return this.http.get<ObjectInterface<bnessInterfaces.BusinessInterface>>(url);
   }
 
   loadBusinessesLocally(): bnessInterfaces.LocalBusinessInterface[] {
