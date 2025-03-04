@@ -34,7 +34,7 @@ export class SignInComponent {
     var rememberMe = localStorage.getItem('00_remember_me') === 'true';
     this.signInFormGroup = this.fb.group({
       email: [rememberEmail, [Validators.required, Validators.email]],
-      password: ['Mu12345678.', Validators.required],
+      password: ['', Validators.required],
       rememberMe: [rememberMe, ],
     });
   }

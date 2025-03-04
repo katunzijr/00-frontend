@@ -36,10 +36,10 @@ export class SignUpComponent {
     private authService: AuthService
   ) {
     this.signUpFormGroup = this.fb.group({
-      email: ['jas@jas.com', [Validators.required, Validators.email, emailDomainValidator(this.excludedHosts)]],
-      password1: ['qwertyuiop', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
-      password2: ['qwertyuiop', Validators.required],
-      username: ['jas', Validators.required],
+      email: ['', [Validators.required, Validators.email, emailDomainValidator(this.excludedHosts)]],
+      password1: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
+      password2: ['', Validators.required],
+      username: ['', Validators.required],
     },
     { validator: passwordMatchValidator('password1', 'password2') }
   );
