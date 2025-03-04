@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { emailDomainValidator } from '../validators/email.domain';
 import { finalize } from 'rxjs';
 import { AuthRoutes } from '../auth.routes';
+import { passwordMatchValidator } from '../validators/password';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,11 +36,13 @@ export class SignUpComponent {
     private authService: AuthService
   ) {
     this.signUpFormGroup = this.fb.group({
-      email: ['', [Validators.required, Validators.email, emailDomainValidator(this.excludedHosts)]],
-      password1: ['', Validators.required],
-      password2: ['', Validators.required],
-      username: ['', Validators.required],
-    });
+      email: ['jas@jas.com', [Validators.required, Validators.email, emailDomainValidator(this.excludedHosts)]],
+      password1: ['qwertyuiop', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
+      password2: ['qwertyuiop', Validators.required],
+      username: ['jas', Validators.required],
+    },
+    { validator: passwordMatchValidator('password1', 'password2') }
+  );
   }
 
   createUser() {
@@ -57,6 +60,7 @@ export class SignUpComponent {
     )
     .subscribe({
       next: (data): void => {
+        localStorage.removeItem('00_businesses');
         let userData: any = data
         this.authService.storeTokens(userData.body);
         this.authService.scheduleTokenRefresh(userData.body);

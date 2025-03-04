@@ -16,7 +16,7 @@
           <h4>Create New Eyesondigits Account</h4>
         </div>
         <div class="form-login">
-          <label class="form-label" for="username">Username</label>
+          <label class="form-label" for="username">Username <span>*</span></label>
           <div class="form-addons">
             <input
               type="text"
@@ -29,12 +29,12 @@
             >
             <img src="/img/icons/user-icon.svg" alt="img">
           </div>
-          <div class="text-danger my-err" *ngIf="signUpFormGroup.get('username')?.invalid && signUpFormGroup.get('username')?.touched">
+          <div class="text-danger" *ngIf="signUpFormGroup.get('username')?.invalid && signUpFormGroup.get('username')?.touched">
             <small *ngIf="signUpFormGroup.get('username')?.hasError('required')">Username field is required</small>
           </div>
         </div>
         <div class="form-login">
-          <label class="form-label" for="email">Email Address</label>
+          <label class="form-label" for="email">Email Address <span>*</span></label>
           <div class="form-addons">
             <input
               type="email"
@@ -47,41 +47,53 @@
             >
             <img src="/img/icons/mail.svg" alt="img">
           </div>
-          <div class="text-danger my-err" *ngIf="signUpFormGroup.get('email')?.invalid && signUpFormGroup.get('email')?.touched">
+          <div class="text-danger" *ngIf="signUpFormGroup.get('email')?.invalid && signUpFormGroup.get('email')?.touched">
             <small *ngIf="signUpFormGroup.get('email')?.hasError('required')">Email field is required</small>
             <small *ngIf="signUpFormGroup.get('email')?.hasError('email')">Enter a valid email</small>
             <small *ngIf="signUpFormGroup.get('email')?.hasError('invalidDomain')">Email must not be from eyesondigit.com</small>
           </div>
         </div>
         <div class="form-login">
-          <label class="form-label" for="password1">Password</label>
+          <label class="form-label" for="password1">Password <span>*</span></label>
           <div class="pass-group">
             <input
               [type]="password[1] ? 'text' : 'password' "
-              class="pass-input" id="password1"
+              class="pass-input"
+              id="password1"
               placeholder="Enter Password"
               formControlName="password1"
+              [class.border-danger]="signUpFormGroup.get('password1')?.invalid && signUpFormGroup.get('password1')?.touched"
             >
             <span class="fas toggle-password" [ngClass]=" password[1] ? 'fa-eye' : 'fa-eye-slash'"
               (click)="togglePassword(1)"></span>
           </div>
-          <div class="text-danger my-err"
-            *ngIf="signUpFormGroup.get('password1')?.invalid && signUpFormGroup.get('password1')?.touched">
+          <div class="text-danger" *ngIf="signUpFormGroup.get('password1')?.invalid && signUpFormGroup.get('password1')?.touched">
             <small *ngIf="signUpFormGroup.get('password1')?.hasError('required')">Password field is required</small>
+            <small *ngIf="signUpFormGroup.get('password1')?.hasError('minlength') || signUpFormGroup.get('password1')?.hasError('maxlength')">Password length must be between 8 to 15 characters long</small>
           </div>
         </div>
         <div class="form-login">
-          <label class="form-label" for="password2">Confirm Password</label>
+          <label class="form-label" for="password2">Confirm Password <span>*</span></label>
           <div class="pass-group">
-            <input [type]="password[2] ? 'text' : 'password' " class="pass-input" id="password2"
-              placeholder="Enter Password" formControlName="password2">
+            <input
+              [type]="password[2] ? 'text' : 'password' "
+              class="pass-input"
+              id="password2"
+              placeholder="Enter Password"
+              formControlName="password2"
+              [class.border-danger]="signUpFormGroup.get('password2')?.invalid && signUpFormGroup.get('password2')?.touched"
+            >
             <span class="fas toggle-passwords" [ngClass]=" password[2] ? 'fa-eye' : 'fa-eye-slash'"
               (click)="togglePassword(2)"></span>
           </div>
-          <div class="text-danger my-err"
-            *ngIf="signUpFormGroup.get('password2')?.invalid && signUpFormGroup.get('password2')?.touched">
-            <small *ngIf="signUpFormGroup.get('password2')?.hasError('required')">Password field is required</small>
+
+          <div class="text-danger" *ngIf="signUpFormGroup.get('password2')?.invalid && signUpFormGroup.get('password2')?.touched">
+            <small *ngIf="signUpFormGroup.get('password2')?.hasError('required')">Password field is required!</small>
           </div>
+          <div class="text-danger" *ngIf="signUpFormGroup.errors?.['passwordMismatch'] && signUpFormGroup.get('password2')?.touched">
+            <small>Passwords do not match!</small>
+          </div>
+
         </div>
         <div class="form-login authentication-check">
           <div class="row">
@@ -91,7 +103,7 @@
                   <label class="checkboxs ps-4 mb-0 pb-0 line-height-1">
                     <input type="checkbox">
                     <span class="checkmarks"></span>
-                    I agree to the <a href="javascript:void(0);" target="_blank" class="hover-a">Terms & Privacy</a>
+                    I agree to the <a href="javascript:void(0);" class="hover-a">Terms & Privacy</a>
                   </label>
                 </div>
               </div>
@@ -99,7 +111,15 @@
           </div>
         </div>
         <div class="form-login">
-          <button class="btn btn-login" type="submit" [disabled]="signUpFormGroup.invalid">Sign Up</button>
+          <button class="btn btn-login" type="submit" [disabled]="signUpFormGroup.invalid">
+            @if(isSigningUp) {
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            }
+            @else{
+              Sign Up
+            }
+          </button>
         </div>
         <div class="signinform">
           <h4>Already have an account ? <a [routerLink]="'/'+routes.signIn" class="hover-a">Sign In Instead</a></h4>

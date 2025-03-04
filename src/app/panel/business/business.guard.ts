@@ -17,7 +17,7 @@ export const businessGuard: CanActivateFn = () => {
   return businessService.getMyBusinesses().pipe(
     map((hasBusinesses: boolean) => {
       if (!hasBusinesses) {
-        return router.parseUrl(BusinessRoutes.addBusiness);
+        return router.parseUrl(BusinessRoutes.quickAddBusiness);
       }
       return true; // Allow access to the route
     })

@@ -25,7 +25,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.toastService.showError(error.error.detail);
         }
         else if(error.status == 400) {
-          error.error.non_field_errors.forEach((item: string) => {this.toastService.showError(item);})
+          if (error.error.non_field_errors)
+            error.error.non_field_errors.forEach((item: string) => {this.toastService.showError(item);})
         }
 
         return throwError(() => error);

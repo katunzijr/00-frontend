@@ -40,6 +40,7 @@ export class SignInComponent {
   }
 
   loginTheUser() {
+    this.isSigningIn = true
     if (this.signInFormGroup.value.rememberMe) {
       localStorage.setItem('00_remember_me', this.signInFormGroup.value.rememberMe);
       localStorage.setItem('00_remember_email', this.signInFormGroup.value.email);
@@ -48,7 +49,6 @@ export class SignInComponent {
       localStorage.removeItem('00_remember_me');
       localStorage.removeItem('00_remember_email');
     }
-    this.isSigningIn = true
     this.authService.logInUser({
       email: this.signInFormGroup.value.email,
       password: this.signInFormGroup.value.password,
@@ -66,7 +66,6 @@ export class SignInComponent {
         this.authService.storeTokens(userData.body);
         // this.authService.scheduleTokenRefresh(userData.body);
         this.authService.redirectToDashbordPage();
-        this.isSigningIn = false
       },
     })
   }

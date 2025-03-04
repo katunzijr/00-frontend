@@ -211,6 +211,12 @@ export class AuthService {
   }
 
   private handleError = (error: HttpErrorResponse): Observable<never> => {
+    if(error.status == 400) {
+      if (error.error.username)
+        error.error.username.forEach((item: string) => {this.toastService.showError(item);})
+      if (error.error.email)
+        error.error.email.forEach((item: string) => {this.toastService.showError(item);})
+    }
 
     return of();
   };
