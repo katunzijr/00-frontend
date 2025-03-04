@@ -38,7 +38,6 @@ export class ListBusinessesComponent implements OnInit{
   businessList: BusinessInterface[] = [];
   public routes = BusinessRoutes;
 
-  initChecked = false;
   public selectedValue1 = '';
   public selectedValue2 = '';
   public selectedValue3 = '';

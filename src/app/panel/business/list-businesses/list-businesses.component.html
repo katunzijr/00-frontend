@@ -112,12 +112,6 @@
               <table class="table  datanew">
                 <thead>
                   <tr matSort >
-                    <th class="no-sort">
-                      <label class="checkboxs" (click)="selectAll(initChecked)">
-                        <input type="checkbox" id="select-all" [(ngModel)]="initChecked">
-                        <span class="checkmarks"></span>
-                      </label>
-                    </th>
                     <th mat-sort-header="name">Name</th>
                     <!-- <th mat-sort-header="type">Type</th> -->
                     <th mat-sort-header="createdOn">Created At</th>
@@ -128,12 +122,6 @@
                 <tbody>
                   @for (business of businessList; track business) {
                     <tr>
-                      <td>
-                        <label class="checkboxs">
-                          <input type="checkbox" [(ngModel)]="initChecked">
-                          <span class="checkmarks"></span>
-                        </label>
-                      </td>
                       <td>{{business.name}}</td>
                       <!-- <td>{{business.type}}</td> -->
                       <td>{{business.created_at}}</td>
@@ -141,11 +129,14 @@
                       <td class="action-table-data">
                         <div class="edit-delete-action">
                           <a class="me-2 p-2" href="javascript:void(0);">
+                            <i class="fa-solid fa-eye"></i>
+                          </a>
+                          <!-- <a class="me-2 p-2" href="javascript:void(0);">
                             <i class="fa-solid fa-pen-to-square"></i>
                           </a>
                           <a class="confirm-text p-2" href="javascript:void(0);" (click)=confirmColor()>
                             <i class="fa-solid fa-trash"></i>
-                          </a>
+                          </a> -->
                         </div>
                       </td>
                     </tr>
