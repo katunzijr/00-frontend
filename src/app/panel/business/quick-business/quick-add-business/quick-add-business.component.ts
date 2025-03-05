@@ -9,6 +9,7 @@ import { BusinessService } from '../../business.service';
 import { ToastService } from '../../../../shared/toast/toast.service';
 import { CommonModule } from '@angular/common';
 import { Route, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-quick-add-business',
@@ -45,6 +46,7 @@ export class QuickAddBusinessComponent implements OnInit {
       businessClass: ['individual', ],
       socialMediaLinks: ['', ],
       logo: [null, ],
+      location: ['', ],
     });
     this.user = this.authService.currentUser();
   }
@@ -93,36 +95,22 @@ export class QuickAddBusinessComponent implements OnInit {
         social_media_links: this.registerBusinessGroup.value.socialMediaLinks,
         owner: Number(this.user?.pk),
         type: this.registerBusinessGroup.value.type,
-        logo: this.registerBusinessGroup.value.logo,
+        location: 'Dar es Salaam',
+        // logo: this.registerBusinessGroup.value.logo,
         // logo: this.logoFile,
       }
-    ).subscribe({
+    )
+    .pipe(
+      finalize(() => {
+        this.isRegisteringBusiness = false;
+      })
+    )
+    .subscribe({
       next: (data): void => {
         this.isRegisteringBusiness = false
         this.toastService.showSuccess('Business created successful.');
         this.router.navigate([BusinessRoutes.quickAddBranches]);
       },
-      error: (error: HttpErrorResponse): void => {
-        this.isRegisteringBusiness = false
-        if (error instanceof EvalError || error.status == 0) {
-          this.toastService.showError('There is an issue with the network. Please try again.');
-        }
-        else if (error.status == 403) {
-          console.log(error.error.detail);
-        }
-        else if (error.status == 400) {
-          if (error.error.username) {
-            error.error.username.forEach((item: string) => {console.log(item)})
-          }
-          else if (error.error.email) {
-            error.error.email.forEach((item: string) => {console.log(item)})
-          }
-          else if (error.error.non_field_errors) {
-            error.error.non_field_errors.forEach((item: string) => {console.log(item)})
-          }
-        }
-        // console.log(error)
-      }
     })
   }
 

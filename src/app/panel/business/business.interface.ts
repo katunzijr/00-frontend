@@ -29,10 +29,11 @@ export interface AddBusinessInterface{
   description: string,
   website: string,
   is_bness_active: boolean,
-  logo: File | null,
+  // logo: File | null,
   social_media_links: string,
   owner: number | null,
-  type: number
+  type: number,
+  location: string
 }
 
 export interface AddBranchInterface{

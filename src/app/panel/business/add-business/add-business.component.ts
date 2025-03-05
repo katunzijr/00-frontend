@@ -45,6 +45,7 @@ export class AddBusinessComponent implements OnInit {
       businessClass: ['individual', ],
       socialMediaLinks: ['', ],
       logo: [null, ],
+      location: ['', ],
     });
     this.user = this.authService.currentUser();
   }
@@ -70,19 +71,6 @@ export class AddBusinessComponent implements OnInit {
 
   registerTheBusiness() {
     this.isRegisteringBusiness = true
-    // const formData = new FormData();
-    // formData.append('name', this.registerBusinessGroup.value.name);
-    // formData.append('type', this.registerBusinessGroup.value.type);
-    // formData.append('description', this.registerBusinessGroup.value.description);
-    // formData.append('website', this.registerBusinessGroup.value.website);
-    // formData.append('is_bness_active', this.registerBusinessGroup.value.isBusinessActive);
-    // formData.append('social_media_links', JSON.stringify(this.registerBusinessGroup.get('socialMediaLinks')?.value));
-
-    // Append the image file if selected
-    // const logoFile = this.registerBusinessGroup.get('logo')?.value;
-    // if (logoFile) {
-    //   formData.append('logo', logoFile);
-    // }
 
     this.businessService.registerBusiness(
       {
@@ -93,8 +81,7 @@ export class AddBusinessComponent implements OnInit {
         social_media_links: this.registerBusinessGroup.value.socialMediaLinks,
         owner: Number(this.user?.pk),
         type: this.registerBusinessGroup.value.type,
-        logo: this.registerBusinessGroup.value.logo,
-        // logo: this.logoFile,
+        location: this.registerBusinessGroup.value.location,
       }
     ).subscribe({
       next: (data): void => {
