@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { InventoryRoutes } from '../../inventory.routes';
 import { SidebarService } from '../../../../core/service/sidebar/sidebar.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ProductInterface } from '../../inventory.interface';
+import { InventoryService } from '../../inventory.service';
 
 interface data {
   value: string;
@@ -23,6 +25,8 @@ interface data {
 })
 export class EditProductComponent {
   public routes = InventoryRoutes
+  productData: ProductInterface | null = null;
+
   public selectedValue1 = '';
   public selectedValue2 = '';
   public selectedValue3 = '';
@@ -95,7 +99,25 @@ export class EditProductComponent {
     { value: 'Percentage' },
     { value: 'Early Payment' },
   ];
-  constructor(private sidebar: SidebarService) {}
+
+  constructor(
+      private sidebar: SidebarService,
+      private inventoryService: InventoryService,
+      private route: ActivatedRoute
+    ) { }
+
+    ngOnInit() {
+      const productId = Number(this.route.snapshot.paramMap.get('id'));
+      this.viewTheProduct(productId);
+    }
+
+    viewTheProduct(productId: number) {
+      this.inventoryService.getProduct(productId).subscribe({
+        next: (data: ProductInterface ): void => {
+          this.productData = data
+        }
+      });
+    }
 
   public removeImg(index: number) {
     this.image[index] = !this.image[index];

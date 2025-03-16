@@ -81,13 +81,13 @@ export class AddBusinessComponent implements OnInit {
         social_media_links: this.registerBusinessGroup.value.socialMediaLinks,
         owner: Number(this.user?.pk),
         type: this.registerBusinessGroup.value.type,
-        location: this.registerBusinessGroup.value.location,
+        location: 'Dar es Salaam',
       }
     ).subscribe({
       next: (data): void => {
         this.isRegisteringBusiness = false
         this.toastService.showSuccess('Business created successful.');
-        this.router.navigate([BusinessRoutes.quickAddBranches]);
+        this.router.navigate([BusinessRoutes.listBusinesses]);
       },
     })
   }

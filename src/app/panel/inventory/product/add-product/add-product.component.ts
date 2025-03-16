@@ -1,10 +1,16 @@
+import { productList } from './../../../../shared/model/page.model';
 import { MatSelectModule } from '@angular/material/select';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SidebarService } from '../../../../core/service/sidebar/sidebar.service';
 import { InventoryRoutes } from '../../inventory.routes';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { InventoryService } from '../../inventory.service';
+import { ToastService } from '../../../../shared/toast/toast.service';
+import { LocalBusinessInterface } from '../../../business/business.interface';
+import { BusinessService } from '../../../business/business.service';
+import { finalize } from 'rxjs';
 interface data {
   value: string;
 }
@@ -16,6 +22,7 @@ interface data {
     MatSelectModule,
     FormsModule,
     CommonModule,
+    ReactiveFormsModule
   ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.scss',
@@ -98,8 +105,58 @@ export class AddProductComponent {
     { value: 'Code35' },
     { value: 'Code36' },
   ];
-  constructor(private sidebar: SidebarService) {}
+
   isCollapsed: boolean = false;
+  addProductFormGroup: FormGroup;
+  isAddingProduct: boolean = false;
+  continueAdding = false;
+  private readonly router = inject(Router);
+  businessService = inject(BusinessService);
+  currentBusiness: LocalBusinessInterface | null = null;
+
+  constructor(
+    private sidebar: SidebarService,
+    private fb: FormBuilder,
+    private inventoryService: InventoryService,
+    private toastService: ToastService,
+  ) {
+    this.addProductFormGroup = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.maxLength(200)],
+    });
+    this.currentBusiness = this.businessService.loadCurrentBusinessLocally();
+  }
+
+  setContinueAdding(value: boolean) {
+    this.continueAdding = value;
+  }
+
+  addTheProduct() {
+    this.isAddingProduct = true
+
+    this.inventoryService.addProduct({
+        name: this.addProductFormGroup.value.name,
+        description: this.addProductFormGroup.value.description,
+        business: Number(this.currentBusiness?.id),
+    }).pipe(
+      finalize(() => {
+        this.isAddingProduct = false;
+      })
+    ).subscribe({
+      next: (data): void => {
+        this.toastService.showSuccess('Product added successful.');
+        if (this.continueAdding) {
+          this.router.navigate([InventoryRoutes.addProduct]);
+          this.addProductFormGroup.reset();
+        }
+        else {
+          this.router.navigate([InventoryRoutes.listProducts]);
+          this.continueAdding = false;
+        }
+      },
+    })
+  }
+
   toggleCollapse() {
     this.sidebar.toggleCollapse();
     this.isCollapsed = !this.isCollapsed;

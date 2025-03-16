@@ -12,8 +12,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { CustomPaginationModule } from '../../../../shared/custom-pagination/custom-pagination.module';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../product.service';
-import { ProductInterface } from '../product.interface';
+import { InventoryService } from '../../inventory.service';
+import { ProductInterface } from '../../inventory.interface';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+
 @Component({
   selector: 'app-list-product',
   standalone: true,
@@ -59,65 +61,62 @@ export class ListProductsComponent {
 
 
   public routes = InventoryRoutes;
+  productListy: ProductInterface[] = [];
+  isDeletingProduct: boolean = false;
+
   // pagination variables
-  public tableData: Array<productList> = [];
+  public tableData: Array<ProductInterface> = [];
   public pageSize = 10;
   public serialNumberArray: Array<number> = [];
-  public totalData = 0;
+
   showFilter = false;
-  dataSource!: MatTableDataSource<productList>;
+  dataSource!: MatTableDataSource<ProductInterface>;
   public searchDataValue = '';
   //** / pagination variables
 
+
   constructor(
-    private data: DataService,
     private pagination: PaginationService,
-    private router: Router,
     private sidebar: SidebarService,
-    private productService: ProductService,
+    private inventoryService: InventoryService,
   ) {
-    this.data.getDataTable().subscribe((apiRes: apiResultFormat) => {
-      this.totalData = apiRes.totalData;
-      this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
-        if (this.router.url == this.routes.listProducts) {
-          this.getTableData({ skip: res.skip, limit: this.totalData });
-          this.pageSize = res.pageSize;
-        }
-      });
-    });
     this.getTheProducts();
   }
 
   getTheProducts(){
-    this.productService.getProducts().subscribe({
+    this.inventoryService.getProducts().subscribe({
       next: (data): void => {
-        this.productList = data
+        this.productListy = data.results
+        this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
+          // this.getTableData({ skip: res.skip, limit: data.count });
+          this.pageSize = res.pageSize;
+        });
       }
     });
   }
 
-  private getTableData(pageOption: pageSelection): void {
-    this.data.getProductList().subscribe((apiRes: apiResultFormat) => {
-      this.tableData = [];
-      this.serialNumberArray = [];
-      this.totalData = apiRes.totalData;
-      apiRes.data.map((res: productList, index: number) => {
-        const serialNumber = index + 1;
-        if (index >= pageOption.skip && serialNumber <= pageOption.limit) {
-          res.sNo = serialNumber;
-          this.tableData.push(res);
-          this.serialNumberArray.push(serialNumber);
-        }
-      });
-      this.dataSource = new MatTableDataSource<productList>(this.tableData);
-      this.pagination.calculatePageSize.next({
-        totalData: this.totalData,
-        pageSize: this.pageSize,
-        tableData: this.tableData,
-        serialNumberArray: this.serialNumberArray,
-      });
-    });
-  }
+  // private getTableData(pageOption: pageSelection): void {
+  //   this.inventoryService.getProducts().subscribe((apiRes: any) => {
+  //     this.tableData = [];
+  //     this.serialNumberArray = [];
+  //     this.productListy = apiRes.totalData;
+  //     apiRes.data.map((res: ProductInterface, index: number) => {
+  //       const serialNumber = index + 1;
+  //       if (index >= pageOption.skip && serialNumber <= pageOption.limit) {
+  //         res.id = serialNumber;
+  //         this.tableData.push(res);
+  //         this.serialNumberArray.push(serialNumber);
+  //       }
+  //     });
+  //     this.dataSource = new MatTableDataSource<ProductInterface>(this.tableData);
+  //     this.pagination.calculatePageSize.next({
+  //       totalData: apiRes.data,
+  //       pageSize: this.pageSize,
+  //       tableData: this.tableData,
+  //       serialNumberArray: this.serialNumberArray,
+  //     });
+  //   });
+  // }
 
   public sortData(sort: Sort) {
     const data = this.tableData.slice();
@@ -133,19 +132,21 @@ export class ListProductsComponent {
   }
 
   public searchData(value: string): void {
-    this.dataSource.filter = value.trim().toLowerCase();
-    this.tableData = this.dataSource.filteredData;
+
   }
+
   isCollapsed: boolean = false;
   toggleCollapse() {
     this.sidebar.toggleCollapse();
     this.isCollapsed = !this.isCollapsed;
   }
+
   public filter = false;
   openFilter() {
     this.filter = !this.filter;
   }
-  confirmColor() {
+
+  deleteTheProduct(productId: number) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: ' btn btn-success',
@@ -155,7 +156,7 @@ export class ListProductsComponent {
     })
 
     swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
+      title: 'Delete product ❗️',
       text: "You won't be able to revert this!",
       confirmButtonText: 'Yes, delete it!',
       showCancelButton: true,
@@ -163,32 +164,43 @@ export class ListProductsComponent {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        this.isDeletingProduct = true;
+        this.inventoryService.deleteProduct(productId).subscribe({
+          next: () => {
+            this.isDeletingProduct = false;
+            const index = this.productListy.findIndex((barcode: { id: number; }) => barcode.id === productId);
+            if (index !== -1) {
+              this.productListy.splice(index, 1);
+            }
+            swalWithBootstrapButtons.fire(
+              'Product Deleted!',
+              'Product has been deleted. 🚮',
+              'success'
+            )
+          },
+        });
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
+          'Cancelled.',
+          'The product is safe 😇',
+          'info'
         )
       }
     })
   }
+
   selectAll(initChecked: boolean) {
-    if (!initChecked) {
-      this.tableData.forEach((f) => {
-        f.isSelected = true;
-      });
-    } else {
-      this.tableData.forEach((f) => {
-        f.isSelected = false;
-      });
-    }
+    // if (!initChecked) {
+    //   this.tableData.forEach((f) => {
+    //     f.isSelected = true;
+    //   });
+    // } else {
+    //   this.tableData.forEach((f) => {
+    //     f.isSelected = false;
+    //   });
+    // }
   }
 
 }

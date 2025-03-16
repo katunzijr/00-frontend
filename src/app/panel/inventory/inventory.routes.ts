@@ -71,13 +71,13 @@ export class InventoryRoutes {
     return this.product + '/list-products';
   }
   public static get addProduct(): string {
-    return this.inventory + '/add-product';
+    return this.product + '/add-product';
   }
   public static get expiredProducts(): string {
-    return this.inventory + '/expired-products';
+    return this.product + '/expired-products';
   }
   public static get viewProduct(): string {
-    return this.inventory + '/view-product';
+    return this.product + '/view-product';
   }
 }
 
@@ -115,10 +115,10 @@ export const INVENTORY_ROUTES: Routes = [
         children: [
           { path: InventoryRoutes.product, pathMatch: 'full', redirectTo: InventoryRoutes.listProducts },
           { path: InventoryRoutes.listProducts, component: ListProductsComponent, },
-          { path: InventoryRoutes.editProduct, component: EditProductComponent, },
+          { path: InventoryRoutes.editProduct+'/:id', component: EditProductComponent, },
           { path: InventoryRoutes.addProduct, component: AddProductComponent, },
           { path: InventoryRoutes.expiredProducts, component: ExpiredProductsComponent, },
-          { path: InventoryRoutes.viewProduct, component: ViewProductComponent, },
+          { path: InventoryRoutes.viewProduct+'/:id', component: ViewProductComponent, },
         ],
       }
     ],

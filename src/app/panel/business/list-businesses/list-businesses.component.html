@@ -19,134 +19,136 @@
                 <i class="fa-solid fa-chevron-down"></i>
               }</a>
             </li>
-          </ul>
-          <div class="page-btn">
-            <a [routerLink]="[routes.addBusiness]" routerLinkActive="router-link-active" class="btn btn-added"><i
-            class="fa-regular fa-square-plus me-2"></i>Add New Business</a>
+  </ul>
+  <div class="page-btn">
+    <a [routerLink]="['/'+routes.addBusiness]" routerLinkActive="router-link-active" class="btn btn-added"><i
+    class="fa-regular fa-square-plus me-2"></i>Add New Business</a>
+  </div>
+</div>
+
+<!-- Business list -->
+<div class="card table-list-card">
+  <div class="card-body">
+    <div class="table-top">
+      <div class="search-set">
+        <div class="search-input">
+          <a href="javascript:void(0);" class="btn btn-searchset"><i class="fa-solid fa-magnifying-glass"></i></a>
+          <div class="dataTables_filter">
+            <label>
+              <input [(ngModel)]="searchDataValue" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchData(searchDataValue)"
+                type="search" class="form-control" placeholder="Search..." />
+              </label>
+            </div>
           </div>
         </div>
-        <!-- /Business list -->
-        <div class="card table-list-card">
-          <div class="card-body">
-            <div class="table-top">
-              <div class="search-set">
-                <div class="search-input">
-                  <a href="javascript:void(0);" class="btn btn-searchset"><i class="fa-solid fa-magnifying-glass"></i></a>
-                  <div class="dataTables_filter">
-                    <label>
-                      <input [(ngModel)]="searchDataValue" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchData(searchDataValue)"
-                        type="search" class="form-control" placeholder="Search..." />
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="search-path">
-                  <a class="btn btn-filter" id="filter_search" (click)="openFilter()" [ngClass]="{'setclose': filter === true}">
-                    <i class="fa-solid fa-filter filter-icon"></i>
-                    <span><img src="/img/icons/closes.svg" alt="img"></span>
-                  </a>
-                </div>
-                <div class="form-sort">
-                  <i class="fa-solid fa-sliders info-img"></i>
-                  <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}"
-                    class="select space-select" placeholder="Sort by Date">
-                    @for (data of selectedList1; track data) {
-                      <mat-option [value]="data.value">
-                        {{data.value}}
-                      </mat-option>
-                    }
-                  </mat-select>
-                </div>
-              </div>
-              <!-- /Filter -->
-              <div class="card" id="filter_inputs" [ngClass]="{'d-block': filter, 'd-none': !filter}">
-                <div class="card-body pb-0">
-                  <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                      <div class="input-blocks">
-                        <i  class="feather icon-zap info-img"></i>
+        <div class="search-path">
+          <a class="btn btn-filter" id="filter_search" (click)="openFilter()" [ngClass]="{'setclose': filter === true}">
+            <i class="fa-solid fa-filter filter-icon"></i>
+            <span><img src="/img/icons/closes.svg" alt="img"></span>
+          </a>
+        </div>
+        <div class="form-sort">
+          <i class="fa-solid fa-sliders info-img"></i>
+          <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}"
+            class="select space-select" placeholder="Sort by Date">
+            @for (data of selectedList1; track data) {
+              <mat-option [value]="data.value">
+                {{data.value}}
+              </mat-option>
+            }
+          </mat-select>
+        </div>
+      </div>
 
-                        <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}"
-                          class="space-select select" placeholder="Choose Brand">
-                          @for (data of selectedList2; track data) {
-                            <mat-option [value]="data.value">
-                              {{data.value}}
-                            </mat-option>
-                          }
-                        </mat-select>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                      <div class="input-blocks">
-                        <i class="feather icon-calendar info-img"></i>
-                        <div class="input-groupicon date-input1">
-                          <input type="text" class="datetimepicker" bsDatepicker placeholder="Choose Date" container=".date-input1">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                      <div class="input-blocks">
-                        <i  class="feather icon-stop-circle info-img"></i>
-                        <mat-select [(ngModel)]="selectedValue3" [ngModelOptions]="{standalone: true}"
-                          class="space-select select" placeholder="Choose Brand">
-                          @for (data of selectedList3; track data) {
-                            <mat-option [value]="data.value">
-                              {{data.value}}
-                            </mat-option>
-                          }
-                        </mat-select>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12 ms-auto">
-                      <div class="input-blocks">
-                        <a class="btn btn-filters ms-auto"> <i class="fa-solid fa-magnifying-glass"></i>
-                      Search </a>
+      <!-- /Filter -->
+      <div class="card" id="filter_inputs" [ngClass]="{'d-block': filter, 'd-none': !filter}">
+        <div class="card-body pb-0">
+          <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+              <div class="input-blocks">
+                <i  class="feather icon-zap info-img"></i>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /Filter -->
-            <div class="table-responsive">
-              <table class="table  datanew">
-                <thead>
-                  <tr matSort >
-                    <th mat-sort-header="name">Name</th>
-                    <!-- <th mat-sort-header="type">Type</th> -->
-                    <th mat-sort-header="createdOn">Created At</th>
-                    <th mat-sort-header="status">Status</th>
-                    <th class="no-sort">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (business of businessList; track business) {
-                    <tr>
-                      <td>{{business.name}}</td>
-                      <!-- <td>{{business.type}}</td> -->
-                      <td>{{business.created_at}}</td>
-                      <td><span class="badge badge-linesuccess">{{business.is_bness_active ? 'Active': 'Inactive'}}</span></td>
-                      <td class="action-table-data">
-                        <div class="edit-delete-action">
-                          <a class="me-2 p-2" href="javascript:void(0);">
-                            <i class="fa-solid fa-eye"></i>
-                          </a>
-                          <!-- <a class="me-2 p-2" href="javascript:void(0);">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                          </a>
-                          <a class="confirm-text p-2" href="javascript:void(0);" (click)=confirmColor()>
-                            <i class="fa-solid fa-trash"></i>
-                          </a> -->
-                        </div>
-                      </td>
-                    </tr>
+                <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}"
+                  class="space-select select" placeholder="Choose Brand">
+                  @for (data of selectedList2; track data) {
+                    <mat-option [value]="data.value">
+                      {{data.value}}
+                    </mat-option>
                   }
-                </tbody>
-              </table>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+              <div class="input-blocks">
+                <i class="feather icon-calendar info-img"></i>
+                <div class="input-groupicon date-input1">
+                  <input type="text" class="datetimepicker" bsDatepicker placeholder="Choose Date" container=".date-input1">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+              <div class="input-blocks">
+                <i  class="feather icon-stop-circle info-img"></i>
+                <mat-select [(ngModel)]="selectedValue3" [ngModelOptions]="{standalone: true}"
+                  class="space-select select" placeholder="Choose Brand">
+                  @for (data of selectedList3; track data) {
+                    <mat-option [value]="data.value">
+                      {{data.value}}
+                    </mat-option>
+                  }
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 ms-auto">
+              <div class="input-blocks">
+                <a class="btn btn-filters ms-auto"> <i class="fa-solid fa-magnifying-glass"></i>
+              Search </a>
 
             </div>
-            <app-custom-pagination></app-custom-pagination>
           </div>
         </div>
-        <!-- /Business list -->
+      </div>
+    </div>
+    <!-- /Filter -->
+    <div class="table-responsive">
+      <table class="table  datanew">
+        <thead>
+          <tr matSort >
+            <th mat-sort-header="name">Name</th>
+            <!-- <th mat-sort-header="type">Type</th> -->
+            <th mat-sort-header="createdOn">Created At</th>
+            <th mat-sort-header="status">Status</th>
+            <th class="no-sort">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (business of businessList; track business) {
+            <tr>
+              <td>{{business.name}}</td>
+              <!-- <td>{{business.type}}</td> -->
+              <td>{{business.created_at}}</td>
+              <td><span class="badge badge-linesuccess">{{business.is_bness_active ? 'Active': 'Inactive'}}</span></td>
+              <td class="action-table-data">
+                <div class="edit-delete-action">
+                  <a class="me-2 p-2" href="javascript:void(0);">
+                    <i class="fa-solid fa-eye"></i>
+                  </a>
+                  <!-- <a class="me-2 p-2" href="javascript:void(0);">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <a class="confirm-text p-2" href="javascript:void(0);" (click)=confirmColor()>
+                    <i class="fa-solid fa-trash"></i>
+                  </a> -->
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+    </div>
+    <app-custom-pagination></app-custom-pagination>
+  </div>
+</div>
+<!-- /Business list -->
 

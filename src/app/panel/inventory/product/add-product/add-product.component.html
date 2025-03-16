@@ -8,8 +8,9 @@
   <ul class="table-top-head">
     <li>
       <div class="page-btn">
-        <a [routerLink]="routes.listProducts" class="btn btn-secondary"><i class="fa-solid fa-arrow-left me-2"></i>Back
-          to Product</a>
+        <a [routerLink]="'/'+routes.listProducts" class="btn btn-secondary">
+          <i class="fa-solid fa-arrow-left me-2"></i> Back to Products
+        </a>
       </div>
     </li>
     <li>
@@ -24,7 +25,7 @@
   </ul>
 </div>
 <!-- /add -->
-<form class="pb-2">
+<form class="pb-2" [formGroup]="addProductFormGroup" (ngSubmit)="$event.preventDefault(); addTheProduct()">
   <div class="card mb-0">
     <div class="card-body add-product pb-0">
       <div class="accordion-card-one accordion" id="accordionExample">
@@ -34,9 +35,9 @@
               aria-controls="collapseOne">
               <div class="addproduct-icon">
                 <h5>
-                  <i class="feather icon-info add-info"></i><span>Product Information</span>
+                  <i class="fa-solid fa-circle-info add-info"></i><span>Product Information</span>
                 </h5>
-                <a href="javascript:void(0);"><i class="feather icon-chevron-down chevron-down-add"></i></a>
+                <a href="javascript:void(0);"><i class="fa-solid fa-chevron-down"></i></a>
               </div>
             </div>
           </div>
@@ -44,8 +45,8 @@
             data-bs-parent="#accordionExample">
             <div class="accordion-body">
               <div class="row">
-                <div class="col-lg-4 col-sm-6 col-12">
-                  <div class="mb-3 add-product">
+                <div class="mb-3 col-lg-4 col-sm-6 col-12">
+                  <div class="add-product">
                     <label class="form-label">Store</label>
 
                     <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}"
@@ -58,8 +59,8 @@
                     </mat-select>
                   </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                  <div class="mb-3 add-product">
+                <div class="mb-3 col-lg-4 col-sm-6 col-12">
+                  <div class="add-product">
                     <label class="form-label">Warehouse</label>
 
                     <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}"
@@ -74,14 +75,20 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-4 col-sm-6 col-12">
-                  <div class="mb-3 add-product">
+                <div class="mb-3 col-lg-4 col-sm-6 col-12">
+                  <div class="add-product">
                     <label class="form-label">Product Name</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" formControlName="name"
+                      [class.border-danger]="addProductFormGroup.get('name')?.invalid && addProductFormGroup.get('name')?.touched" />
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="addProductFormGroup.get('name')?.invalid && addProductFormGroup.get('name')?.touched">
+                    <small *ngIf="addProductFormGroup.get('name')?.hasError('required')">Product name is
+                      required!</small>
                   </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-12">
-                  <div class="mb-3 add-product">
+                <div class="mb-3 col-lg-4 col-sm-6 col-12">
+                  <div class="add-product">
                     <label class="form-label">Slug</label>
                     <input type="text" class="form-control" />
                   </div>
@@ -229,8 +236,13 @@
               <div class="col-lg-12">
                 <div class="input-blocks summer-description-box transfer mb-3">
                   <label>Description</label>
-                  <textarea class="form-control h-100" rows="5"></textarea>
-                  <p class="mt-1">Maximum 60 Characters</p>
+                  <textarea class="form-control h-100" rows="5" class="form-control" formControlName="description"
+                    [class.border-danger]="addProductFormGroup.get('description')?.invalid && addProductFormGroup.get('description')?.touched"></textarea>
+                  <div class="text-danger"
+                    *ngIf="addProductFormGroup.get('description')?.invalid && addProductFormGroup.get('description')?.touched">
+                    <small *ngIf="addProductFormGroup.get('description')?.hasError('maxlength')">Maximum 60
+                      Characters</small>
+                  </div>
                 </div>
               </div>
               <!-- /Editor -->
@@ -246,9 +258,9 @@
               <div class="text-editor add-list">
                 <div class="addproduct-icon list icon">
                   <h5>
-                    <i class="feather icon-life-buoy add-info"></i><span>Pricing & Stocks</span>
+                    <i class="fa-solid fa-money-bill add-info"></i><span>Pricing & Stocks</span>
                   </h5>
-                  <a href="javascript:void(0);"><i class="feather icon-chevron-down chevron-down-add"></i></a>
+                  <a href="javascript:void(0);"><i class="fa-solid fa-chevron-down"></i></a>
                 </div>
               </div>
             </div>
@@ -340,9 +352,9 @@
                           aria-controls="collapseThree">
                           <div class="addproduct-icon list">
                             <h5>
-                              <i class="feather icon-image add-info"></i><span>Images</span>
+                              <i class="fa-solid fa-images add-info"></i><span>Images</span>
                             </h5>
-                            <a href="javascript:void(0);"><i class="feather icon-chevron-down chevron-down-add"></i></a>
+                            <a href="javascript:void(0);"><i class="fa-solid fa-chevron-down"></i></a>
                           </div>
                         </div>
                       </div>
@@ -363,14 +375,16 @@
                                 </div>
                                 <div class="phone-img" [ngClass]="{'d-none': image[1] === false}">
                                   <img src="img/products/phone-add-2.png" alt="image" />
-                                  <a href="javascript:void(0);" (click)="removeImg(1)"><i
-                                      class="feather icon-x x-square-add remove-product"></i></a>
+                                  <a href="javascript:void(0);" (click)="removeImg(1)">
+                                    <i class="fa-solid fa-xmark"></i>
+                                  </a>
                                 </div>
 
                                 <div class="phone-img" [ngClass]="{'d-none': image[2] === false}">
                                   <img src="img/products/phone-add-1.png" alt="image" />
-                                  <a href="javascript:void(0);" (click)="removeImg(2)"><i
-                                      class="feather icon-x x-square-add remove-product"></i></a>
+                                  <a href="javascript:void(0);" (click)="removeImg(2)">
+                                    <i class="fa-solid fa-xmark"></i>
+                                  </a>
                                 </div>
                               </div>
                             </div>
@@ -546,9 +560,9 @@
               <div class="text-editor add-list">
                 <div class="addproduct-icon list">
                   <h5>
-                    <i class="feather icon-list add-info"></i><span>Custom Fields</span>
+                    <i class="fa-brands fa-intercom add-info"></i><span>Custom Fields</span>
                   </h5>
-                  <a href="javascript:void(0);"><i class=" feather icon-chevron-down chevron-down-add"></i></a>
+                  <a href="javascript:void(0);"><i class="fa-solid fa-chevron-down"></i></a>
                 </div>
               </div>
             </div>
@@ -628,13 +642,31 @@
     <div class="col-lg-12">
       <div class="btn-addproduct mb-4">
         <button type="button" class="btn btn-cancel me-2">Cancel</button>
-        <button type="submit" class="btn btn-submit">Save Product</button>
+        <button type="submit" class="btn btn-submit me-2" [disabled]="addProductFormGroup.invalid || isAddingProduct" (click)="setContinueAdding(true)">
+          @if(isAddingProduct) {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          }
+          @else {
+            Save and Continue
+          }
+        </button>
+        <button type="submit" class="btn btn-submit me-2" [disabled]="addProductFormGroup.invalid || isAddingProduct" (click)="setContinueAdding(false)">
+          @if(isAddingProduct) {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          }
+          @else {
+            Save
+          }
+        </button>
       </div>
     </div>
   </div>
 
 </form>
 <!-- /add -->
+
 <!-- Add Adjustment -->
 <div class="modal fade" id="add-units">
   <div class="modal-dialog modal-dialog-centered stock-adjust-modal">

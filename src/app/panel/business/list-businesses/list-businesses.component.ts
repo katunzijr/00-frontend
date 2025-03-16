@@ -34,7 +34,6 @@ interface data {
   styleUrl: './list-businesses.component.scss'
 })
 export class ListBusinessesComponent implements OnInit{
-  public businessRoutes = BusinessRoutes;
   businessList: BusinessInterface[] = [];
   public routes = BusinessRoutes;
 

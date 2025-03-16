@@ -8,6 +8,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LoggingInterceptor } from './app.logging.interceptor';
 import { ErrorInterceptor } from './error/errors.interceptor';
 import { SpinnerInterceptor } from './core/interceptor/spinner/spinner.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,13 +40,14 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
-    }
+    },
     // { // old ways
     //   provide: APP_INITIALIZER,
     //   useFactory: initializerFactory,
     //   multi: true,
     //   deps: [AuthService]
     // },
+    importProvidersFrom(BrowserAnimationsModule)
   ]
 };
 
